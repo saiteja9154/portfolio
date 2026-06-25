@@ -1,0 +1,10 @@
+{
+  "name": "Sai Teja Revuri Portfolio",
+  "description": "A premium, Apple-inspired personal portfolio and executive developer dashboard for Sai Teja Revuri, Data Analyst and AI/ML Specialist.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
