@@ -6,7 +6,9 @@ import { motion } from 'motion/react';
 export default function ContactHub() {
   const [copiedKind, setCopiedKind] = useState<string | null>(null);
 
-  const handleCopy = (text: string, kind: string) => {
+  const handleCopy = (e: React.MouseEvent, text: string, kind: string) => {
+    e.preventDefault();
+    e.stopPropagation();
     navigator.clipboard.writeText(text);
     setCopiedKind(kind);
     setTimeout(() => setCopiedKind(null), 2000);
@@ -25,7 +27,7 @@ export default function ContactHub() {
       id: 'phone',
       label: 'Phone Line',
       value: PERSONAL_INFO.phone,
-      href: `tel:${PERSONAL_INFO.phone}`,
+      href: `tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`,
       icon: Phone,
       color: 'text-purple-400 border-purple-505/10 bg-purple-505/5',
     },
@@ -84,12 +86,15 @@ export default function ContactHub() {
             const isCopied = copiedKind === c.id;
 
             return (
-              <motion.div
+              <motion.a
                 id={`contact-medium-${c.id}`}
                 key={c.id}
+                href={c.href}
+                target={c.id === 'linkedin' || c.id === 'github' ? '_blank' : undefined}
+                rel={c.id === 'linkedin' || c.id === 'github' ? 'noopener noreferrer' : undefined}
                 whileHover={{ rotateX: 4, rotateY: -4, scale: 1.01 }}
                 style={{ transformStyle: 'preserve-3d' }}
-                className="bg-slate-900/30 border border-white/5 border-t-white/15 shadow-[inset_0_1px_0px_rgba(255,255,255,0.08)] hover:border-white/12 rounded-2xl p-6 flex items-center justify-between transition-all group"
+                className="bg-slate-900/30 border border-white/5 border-t-white/15 shadow-[inset_0_1px_0px_rgba(255,255,255,0.08)] hover:border-white/12 rounded-2xl p-6 flex items-center justify-between transition-all group cursor-pointer"
               >
                 <div className="flex items-center space-x-4 min-w-0">
                   <div className={`p-3 rounded-xl border ${c.color} text-slate-200`}>
@@ -99,15 +104,12 @@ export default function ContactHub() {
                     <span className="text-[10px] font-mono text-slate-500 uppercase tracking-wider block">
                       {c.label}
                     </span>
-                    <a
+                    <span
                       id={`contact-link-tag-${c.id}`}
-                      href={c.href}
-                      target="_blank"
-                      rel="noreferrer referrer"
-                      className="text-xs text-slate-200 hover:text-indigo-400 font-mono transition-colors block truncate font-semibold mt-0.5"
+                      className="text-xs text-slate-200 group-hover:text-indigo-400 font-mono transition-colors block truncate font-semibold mt-0.5"
                     >
                       {c.value}
-                    </a>
+                    </span>
                   </div>
                 </div>
 
@@ -115,8 +117,8 @@ export default function ContactHub() {
                 <div className="flex items-center space-x-1.5 ml-4">
                   <button
                     id={`contact-copy-button-${c.id}`}
-                    onClick={() => handleCopy(c.value, c.id)}
-                    className="p-2 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all"
+                    onClick={(e) => handleCopy(e, c.id === 'github' ? c.href : c.value, c.id)}
+                    className="p-2 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all relative z-10"
                     title="Copy Handle"
                   >
                     {isCopied ? (
@@ -126,7 +128,7 @@ export default function ContactHub() {
                     )}
                   </button>
                 </div>
-              </motion.div>
+              </motion.a>
             );
           })}
         </div>

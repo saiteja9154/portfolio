@@ -6,7 +6,7 @@ export const PERSONAL_INFO = {
   phone: "+91 9154122026",
   email: "steja9759@gmail.com",
   linkedin: "linkedin.com/in/sai-teja-revuri-97b63732a",
-  github: "github.com/saiteja9154/saiteja9154",
+  github: "github.com/saiteja9154",
   summary: "B.Tech Computer Science and Artificial Intelligence student focused on Data Analytics and AI-driven problem solving. Skilled in Python, SQL, Power BI, Excel, Pandas, NumPy, and Data Visualization. Built analytics and data management systems and AI-assisted SQL query generation. Experienced with data cleaning, exploratory analysis, database modeling, and practical implementation of data-driven solutions."
 };
 
