@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { ShieldCheck, Cpu, Database, GraduationCap, Award, Brain, Send, User } from 'lucide-react';
+import { ShieldCheck, Cpu, Database, GraduationCap, Award, Brain, Send } from 'lucide-react';
+import profileImg from './assets/profile.jpg';
 
 // Modular Layout Sections
 import HeroSection from './components/HeroSection';
@@ -16,15 +17,9 @@ import ScrollProgress from './components/ScrollProgress';
 
 export default function App() {
   const [isIntelligenceModalOpen, setIsIntelligenceModalOpen] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
 
-  // Load avatar from localStorage if available & track mouse coordinates for spotlight
+  // Track mouse coordinates for spotlight
   useEffect(() => {
-    const savedImg = localStorage.getItem('sai_teja_portfolio_avatar');
-    if (savedImg) {
-      setProfileImage(savedImg);
-    }
-
     const handleMouseMove = (e: any) => {
       document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
@@ -65,16 +60,12 @@ export default function App() {
             className="flex items-center space-x-2.5 cursor-pointer group"
           >
             <div className="w-8 h-8 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md flex items-center justify-center overflow-hidden group-hover:scale-105 group-hover:border-indigo-500/30 transition-all shrink-0">
-              {profileImage ? (
-                <img
-                  src={profileImage}
-                  alt="Sai Teja Revuri"
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              ) : (
-                <User className="w-4 h-4 text-indigo-400" />
-              )}
+              <img
+                src={profileImg}
+                alt="Sai Teja Revuri"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
             </div>
             <span className="text-sm font-bold text-white tracking-tight font-display group-hover:text-indigo-300 transition-colors">
               Sai Teja Revuri
@@ -148,8 +139,6 @@ export default function App() {
         {/* Sections */}
         <HeroSection 
           onOpenAuditReport={() => setIsIntelligenceModalOpen(true)} 
-          profileImage={profileImage}
-          setProfileImage={setProfileImage}
         />
         
         <SkillMatrix />

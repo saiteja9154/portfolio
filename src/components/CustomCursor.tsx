@@ -57,7 +57,7 @@ export default function CustomCursor() {
       if (!target) return;
 
       // Detect clickable elements
-      const isClickable = target.closest('button, a, input, select, textarea, [role="button"], .cursor-pointer, #profile-upload-container');
+      const isClickable = target.closest('button, a, input, select, textarea, [role="button"], .cursor-pointer');
       
       // Detect card-like structured layouts and bento cells for 3D magnetic tracking
       const isCard = target.closest('[id^="project-card-"], [id^="skill-card-"], #hero-verification-dashboard, .bg-slate-900\\/60, .bg-slate-900\\/40, .bg-slate-900\\/30, .bg-white\\/3, .rounded-2xl');

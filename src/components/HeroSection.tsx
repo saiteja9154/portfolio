@@ -1,17 +1,16 @@
-import { useState, useRef, useEffect, ChangeEvent, MouseEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, animate } from 'motion/react';
-import { ShieldCheck, ArrowRight, Upload, Sparkles, User, Brain, AlertCircle, FileText } from 'lucide-react';
+import { ShieldCheck, ArrowRight, Sparkles, Brain, AlertCircle, FileText } from 'lucide-react';
 import { PERSONAL_INFO } from '../data';
 import { RadialProgress, AnimatedCounter } from './MetricMeter';
+import profileImg from '../assets/profile.jpg';
 
 interface HeroProps {
   onOpenAuditReport: () => void;
-  profileImage: string | null;
-  setProfileImage: (img: string | null) => void;
 }
 
-export default function HeroSection({ onOpenAuditReport, profileImage, setProfileImage }: HeroProps) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
+export default function HeroSection({ onOpenAuditReport }: HeroProps) {
+
 
   const [isSpinning, setIsSpinning] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
@@ -110,28 +109,7 @@ export default function HeroSection({ onOpenAuditReport, profileImage, setProfil
     }
   ];
 
-  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        const result = reader.result as string;
-        setProfileImage(result);
-        localStorage.setItem('sai_teja_portfolio_avatar', result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
-  const triggerFileInput = () => {
-    fileInputRef.current?.click();
-  };
-
-  const removeProfileImage = (e: MouseEvent) => {
-    e.stopPropagation();
-    setProfileImage(null);
-    localStorage.removeItem('sai_teja_portfolio_avatar');
-  };
 
   // Scroll utilities
   const scrollSection = (id: string) => {
@@ -154,41 +132,18 @@ export default function HeroSection({ onOpenAuditReport, profileImage, setProfil
           className="lg:col-span-7 space-y-8 text-left"
         >
           
-          {/* Avatar Area with circular floating glass frame & dynamic uploader */}
+          {/* Avatar Area with circular floating glass frame */}
           <div className="flex items-center space-x-6">
             <div
-              id="profile-upload-container"
-              onClick={triggerFileInput}
-              className="relative w-24 h-24 rounded-full bg-slate-900 border border-white/10 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.15)] flex items-center justify-center cursor-pointer overflow-hidden group hover:border-indigo-500 hover:shadow-[0_0_30px_rgba(99,102,241,0.45)] transition-all duration-300 shrink-0"
-              title="Click to Upload Profile Image"
+              id="profile-avatar-container"
+              className="relative w-24 h-24 rounded-full bg-slate-900 border border-white/10 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.15)] flex items-center justify-center overflow-hidden group hover:border-indigo-500 hover:shadow-[0_0_30px_rgba(99,102,241,0.45)] transition-all duration-300 shrink-0"
             >
-              {profileImage ? (
-                <>
-                  <img
-                    id="profile-avatar-rendered"
-                    src={profileImage}
-                    alt="Sai Teja Revuri"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform referrerPolicy"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-[9px] text-white font-mono">
-                    CHANGE
-                  </div>
-                </>
-              ) : (
-                <div className="flex flex-col items-center justify-center text-slate-500 group-hover:text-indigo-400 transition-colors">
-                  <User className="w-6 h-6 mb-0.5" />
-                  <span className="text-[8px] font-mono tracking-wider">UPLOAD</span>
-                </div>
-              )}
-              {/* File Input Binder */}
-              <input
-                id="profile-file-picker"
-                ref={fileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleImageUpload}
-                className="hidden"
+              <img
+                id="profile-avatar-rendered"
+                src={profileImg}
+                alt="Sai Teja Revuri"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform referrerPolicy"
+                referrerPolicy="no-referrer"
               />
             </div>
 
@@ -245,18 +200,7 @@ export default function HeroSection({ onOpenAuditReport, profileImage, setProfil
             </button>
           </div>
 
-          {/* Avatar Reset Action when avatar uploaded */}
-          {profileImage && (
-            <div className="text-[10px] text-slate-500 font-mono mt-2">
-              <button
-                id="reset-avatar-upload"
-                onClick={removeProfileImage}
-                className="hover:text-red-400 underline transition-colors"
-              >
-                Reset uploaded profile photo to system signature
-              </button>
-            </div>
-          )}
+
         </motion.div>
 
         {/* Right Side: High-End Executive Analytics verification dashboard */}
