@@ -1,15 +1,23 @@
 import { useState } from 'react';
 import { PROJECT_LIST } from '../data';
 import { motion } from 'motion/react';
-import { FolderGit2, Star, Github, ExternalLink, Cpu, Database, Binary, Activity } from 'lucide-react';
+import { FolderGit2, Star, Github, ExternalLink, Cpu, Database, Binary, Activity, Brain } from 'lucide-react';
+import ProjectDetailsModal from './ProjectDetailsModal';
+import { Project } from '../types';
 
 export default function ProjectCommandCenter() {
   const [activeCardId, setActiveCardId] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
-  const handleCardClick = (id: string) => {
-    setActiveCardId(id);
+  const handleCardClick = (proj: Project) => {
+    setActiveCardId(proj.id);
     setTimeout(() => {
       setActiveCardId(null);
+      if (proj.id === 'sqlsense-ai') {
+        setSelectedProject(proj);
+        setIsDetailsOpen(true);
+      }
     }, 450); // Transient tactile scale expansion
   };
 
@@ -52,15 +60,17 @@ export default function ProjectCommandCenter() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {PROJECT_LIST.map((proj) => {
             const isML = proj.category === 'ml';
+            const isAIFullStack = proj.category === 'ai-fullstack';
+            const isFeatured = proj.id === 'sqlsense-ai';
 
             return (
               <motion.div
                 id={`project-card-${proj.id}`}
                 key={proj.id}
-                onClick={() => handleCardClick(proj.id)}
+                onClick={() => handleCardClick(proj)}
                 whileHover={{ 
-                  rotateX: 4, 
-                  rotateY: -4, 
+                  rotateX: isFeatured ? 2 : 4, 
+                  rotateY: isFeatured ? -2 : -4, 
                   y: -6, 
                   boxShadow: "0 25px 50px -12px rgba(99, 102, 241, 0.2)",
                   transition: { duration: 0.25 }
@@ -73,25 +83,29 @@ export default function ProjectCommandCenter() {
                 } : {}}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 style={{ transformStyle: 'preserve-3d' }}
-                className="relative bg-gradient-to-b from-slate-950 to-slate-900/60 border border-white/5 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.1)] hover:border-indigo-500/35 rounded-2xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer"
+                className={`relative bg-gradient-to-b from-slate-950 to-slate-900/60 border border-white/5 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.1)] hover:border-indigo-500/35 rounded-2xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer ${
+                  isFeatured ? 'lg:col-span-2' : ''
+                }`}
               >
                 {/* Embedded Glow Accent */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-indigo-505/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-2xl pointer-events-none" />
+                <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-2xl pointer-events-none" />
 
                 <div>
                   {/* Top line with category indicators */}
                   <div className="flex justify-between items-center mb-6">
                     <div className="flex items-center space-x-3">
                       <div className={`p-2.5 rounded-xl border ${
-                        isML 
+                        isAIFullStack
+                          ? 'bg-purple-500/10 border-purple-500/20 text-purple-400'
+                          : isML 
                           ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' 
                           : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                       }`}>
-                        {isML ? <Binary className="w-5 h-5" /> : <Database className="w-5 h-5" />}
+                        {isAIFullStack ? <Brain className="w-5 h-5" /> : isML ? <Binary className="w-5 h-5" /> : <Database className="w-5 h-5" />}
                       </div>
                       <div>
                         <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
-                          {isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE'}
+                          {isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE'}
                         </span>
                         <h4 className="text-sm font-semibold text-white group-hover:text-indigo-400 transition-colors">
                           {proj.name}
@@ -105,6 +119,7 @@ export default function ProjectCommandCenter() {
                         href={proj.githubUrl}
                         target="_blank"
                         rel="noreferrer referrer"
+                        onClick={(e) => e.stopPropagation()}
                         className="p-1.5 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all"
                       >
                         <Github className="w-4 h-4" />
@@ -133,6 +148,45 @@ export default function ProjectCommandCenter() {
                   </div>
                 </div>
 
+                {/* Action buttons row for projects with details */}
+                {isFeatured && (
+                  <div className="flex flex-wrap items-center gap-3 mb-6 pt-5 border-t border-white/5">
+                    <button
+                      id="view-details-sqlsense-ai"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedProject(proj);
+                        setIsDetailsOpen(true);
+                      }}
+                      className="px-4 py-2 bg-indigo-600/90 hover:bg-indigo-500 border border-indigo-500/30 text-white rounded-xl text-xs font-mono font-bold flex items-center space-x-1.5 transition-all cursor-pointer shadow-sm hover:shadow-indigo-500/20"
+                    >
+                      <span>VIEW DETAILS</span>
+                    </button>
+                    <a
+                      id="live-demo-sqlsense-ai"
+                      href={proj.liveUrl}
+                      target="_blank"
+                      rel="noreferrer referrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="px-3.5 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition-all flex items-center space-x-1"
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>LIVE DEMO</span>
+                    </a>
+                    <a
+                      id="github-repo-sqlsense-ai"
+                      href={proj.githubUrl}
+                      target="_blank"
+                      rel="noreferrer referrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="px-3.5 py-2 bg-white/5 hover:bg-white/10 border border-white/10 text-slate-300 hover:text-white rounded-xl text-xs font-mono transition-all flex items-center space-x-1"
+                    >
+                      <Github className="w-3.5 h-3.5" />
+                      <span>GITHUB</span>
+                    </a>
+                  </div>
+                )}
+
                 {/* Footer with technologies and stats */}
                 <div className="border-t border-white/5 pt-5 flex flex-wrap gap-2 items-center justify-between">
                   <div className="flex flex-wrap gap-1.5">
@@ -156,6 +210,13 @@ export default function ProjectCommandCenter() {
           })}
         </div>
       </div>
+
+      {/* Details modal overlay */}
+      <ProjectDetailsModal 
+        isOpen={isDetailsOpen} 
+        onClose={() => setIsDetailsOpen(false)} 
+        project={selectedProject} 
+      />
     </motion.section>
   );
 }

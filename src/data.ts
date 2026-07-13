@@ -82,6 +82,54 @@ export const PROJECT_LIST: Project[] = [
     ],
     githubUrl: "https://github.com/saiteja9154/saiteja9154/tree/main/SQL-Generator",
     category: "data"
+  },
+  {
+    id: "sqlsense-ai",
+    name: "SQLSense AI",
+    description: "An AI-powered SQL learning assistant that helps users understand SQL concepts through natural language conversations. It combines Google Gemini with Retrieval-Augmented Generation (RAG) to provide accurate, context-aware explanations, SQL syntax, examples, and best practices.",
+    technologies: ["React", "Vite", "Tailwind CSS", "Python", "FastAPI", "Google Gemini API", "LangChain", "ChromaDB", "RAG"],
+    outcomes: [
+      "Built an AI-powered conversational chatbot capable of translating natural language requests into valid SQL query syntax.",
+      "Optimized query generation accuracy using ChromaDB vector database and Retrieval-Augmented Generation (RAG) to fetch relevant schemas.",
+      "Engineered high-performance REST APIs using Python and FastAPI, reducing context processing latency and improving model responsiveness."
+    ],
+    githubUrl: "https://github.com/saiteja9154/SQLSense-AI",
+    liveUrl: "https://sqlsense-ai.demo.dev",
+    category: "ai-fullstack",
+    tagline: "Your Intelligent SQL Learning Assistant",
+    problemStatement: "Traditional SQL learning resources rely on static documentation and lack interactive, context-aware feedback. Beginners struggle with complex syntax, join constraints, and query structures. Furthermore, raw LLMs without schema-specific knowledge often hallucinate invalid tables or field names, leading to incorrect queries and user confusion.",
+    solution: "SQLSense AI solves this by introducing a local database context ingestion loop. It parses the target database schema, creates vector embeddings of the metadata, and stores them in ChromaDB. When a user queries the system, a RAG pipeline retrieves the precise schema context to compile a highly specific system prompt for Google Gemini, guaranteeing valid, contextual, and syntax-correct SQL query completions with explanations.",
+    architectureSteps: [
+      "User submits natural language question",
+      "React Frontend receives request and displays typing state",
+      "FastAPI Backend intercepts request and converts input query to vector representation",
+      "RAG Retriever queries ChromaDB Vector Store for semantically matching schemas",
+      "ChromaDB returns exact column schemas, table references, and foreign keys",
+      "Google Gemini compiles output using retrieved context to avoid hallucinations",
+      "Response with highlighted SQL and detailed explanation is delivered to the User"
+    ],
+    ragWorkflow: "The Retrieval-Augmented Generation (RAG) workflow leverages LangChain and ChromaDB to inject domain-specific database layout schemas into the language model's reasoning loop. First, target SQL table DDL statements and tutorials are tokenized and stored as vectors. On user prompt execution, the retriever extracts the top-k relevant tables. This context acts as a constraint barrier, ensuring the AI model only references actual database entities in its generated responses.",
+    features: [
+      "AI-powered SQL chatbot",
+      "Retrieval-Augmented Generation (RAG)",
+      "SQL Query Explanations",
+      "SQL Syntax Examples",
+      "SQL Best Practices",
+      "Interview Preparation",
+      "Modern Responsive UI"
+    ],
+    challengesFaced: [
+      "Context Hallucinations: Initial tests showed the LLM referencing imaginary fields. Resolved by designing an explicit database context layout constraints system in the system prompt.",
+      "Performance Overhead: Vector searches combined with LLM processing introduced response lag. Mitigated via database indexing strategies, parallel prompt construction, and FastAPI schema caching."
+    ],
+    keyLearnings: [
+      "Advanced RAG Architectures: Learned how to fine-tune vector search threshold scores and construct precise metadata filters.",
+      "FastAPI Service Optimization: Structuring enterprise-level Python routers and managing model API dependencies using FastAPI's dependency injection."
+    ],
+    futureEnhancements: [
+      "In-browser SQL Playground: Integrate SQLite WASM to let users run generated queries directly in their browser.",
+      "Schema Autodetection: Connect directly to live PostgreSQL/MySQL development databases to parse tables on the fly."
+    ]
   }
 ];
 
@@ -107,7 +155,7 @@ export const SKILL_MATRIX_DATA: SkillItem[] = [
   {
     name: "Python",
     category: "Languages",
-    relatedProjects: ["Clinic Patient Record System", "AI SQL Query Generator"],
+    relatedProjects: ["Clinic Patient Record System", "AI SQL Query Generator", "SQLSense AI"],
     relatedCertifications: ["Google Data Analytics Certification", "AWS Cloud Practitioner Certification"],
     experienceEvidence: "Employed extensively in Google AI/ML 10-week Virtual Internship for preprocessing and analyzing tabular inputs, formulating feature matrices, and training validation datasets. Built high-fidelity structured Patient Record Systems using Python connection & modeling principles.",
     resumeReferences: "Languages: Python | Data Analysis: Pandas, NumPy | Core Areas: AI/ML Fundamentals"
@@ -115,7 +163,7 @@ export const SKILL_MATRIX_DATA: SkillItem[] = [
   {
     name: "SQL",
     category: "Languages",
-    relatedProjects: ["AI SQL Query Generator"],
+    relatedProjects: ["AI SQL Query Generator", "SQLSense AI"],
     relatedCertifications: ["Google Data Analytics Certification"],
     experienceEvidence: "Conceptualized and coded natural language mapping rules to automate SELECT operations, JOIN filters, WHERE queries, and aggregated summaries. Skilled in query profiling and data fetching layouts.",
     resumeReferences: "Languages: SQL | Projects: AI SQL Query Generator | Certifications: Google Data Analytics"
@@ -139,7 +187,7 @@ export const SKILL_MATRIX_DATA: SkillItem[] = [
   {
     name: "Pandas & NumPy",
     category: "Data Analysis",
-    relatedProjects: ["Clinic Patient Record System"],
+    relatedProjects: ["Clinic Patient Record System", "SQLSense AI"],
     relatedCertifications: ["Google Data Analytics Certification"],
     experienceEvidence: "Scripted indexing maps, dataset scaling, missing value imputation routines, and fast matrix operations for tabular models in Python environment.",
     resumeReferences: "Data Analysis: Pandas, NumPy; Projects: Clinic Patient Record System"

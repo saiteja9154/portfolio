@@ -22,7 +22,18 @@ export interface Project {
   outcomes: string[];
   githubUrl: string;
   liveUrl?: string;
-  category: 'ml' | 'data' | 'system';
+  category: 'ml' | 'data' | 'system' | 'ai-fullstack';
+  tagline?: string;
+  problemStatement?: string;
+  solution?: string;
+  architectureSteps?: string[];
+  ragWorkflow?: string;
+  features?: string[];
+  challengesFaced?: string[];
+  keyLearnings?: string[];
+  futureEnhancements?: string[];
+  gallery?: string[];
+  demoVideo?: string;
 }
 
 export interface Certification {
