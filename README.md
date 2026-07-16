@@ -42,3 +42,4 @@ This portfolio showcases my skills, learning journey, and future projects.
 
 - Portfolio: https://saitejarevuri.vercel.app/
 - GitHub: https://github.com/saiteja9154
+- LinkedIn: https://linkedin.com/in/your-linkedin
