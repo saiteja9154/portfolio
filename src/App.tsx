@@ -8,7 +8,6 @@ import SkillMatrix from './components/SkillMatrix';
 import ProjectCommandCenter from './components/ProjectCommandCenter';
 import AcademicsInternships from './components/AcademicsInternships';
 import CertificationVault from './components/CertificationVault';
-import AISandbox from './components/AISandbox';
 import ContactHub from './components/ContactHub';
 import RecruitmentExport from './components/RecruitmentExport';
 import ResumeIntelligenceModal from './components/ResumeIntelligenceModal';
@@ -103,13 +102,6 @@ export default function App() {
               VAULT
             </button>
             <button 
-              id="nav-link-sandbox"
-              onClick={() => scrollToView('ai-sandbox')} 
-              className="hover:text-indigo-400 transition-colors"
-            >
-              LABS
-            </button>
-            <button 
               id="nav-link-contact"
               onClick={() => scrollToView('contact-hub')} 
               className="hover:text-indigo-400 transition-colors"
@@ -148,8 +140,6 @@ export default function App() {
         <AcademicsInternships />
         
         <CertificationVault />
-        
-        <AISandbox />
         
         <RecruitmentExport />
         
