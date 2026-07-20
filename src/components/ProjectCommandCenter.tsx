@@ -1,166 +1,387 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { PROJECT_LIST } from '../data';
-import { motion } from 'motion/react';
-import { FolderGit2, Github, Database, Binary, Activity, Brain, BarChart3 } from 'lucide-react';
+import { motion, useInView, useReducedMotion, Variants } from 'motion/react';
+import { 
+  FolderGit2, 
+  Github, 
+  Database, 
+  Binary, 
+  Brain, 
+  BarChart3, 
+  ExternalLink,
+  Sparkles,
+  Layers,
+  ChevronDown
+} from 'lucide-react';
 import { Project } from '../types';
 
-export default function ProjectCommandCenter() {
-  const [activeCardId, setActiveCardId] = useState<string | null>(null);
+interface ProjectSlideProps {
+  project: Project;
+  index: number;
+  totalProjects: number;
+  onInView: (index: number) => void;
+}
 
-  const handleCardClick = (proj: Project) => {
-    setActiveCardId(proj.id);
-    setTimeout(() => {
-      setActiveCardId(null);
-    }, 450); // Transient tactile scale expansion
+function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideProps) {
+  const slideRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(slideRef, { amount: 0.5 });
+  const prefersReducedMotion = useReducedMotion();
+
+  const handleInViewUpdate = useCallback(() => {
+    if (isInView) {
+      onInView(index);
+    }
+  }, [isInView, index, onInView]);
+
+  useEffect(() => {
+    handleInViewUpdate();
+  }, [handleInViewUpdate]);
+
+  const isML = project.category === 'ml';
+  const isAIFullStack = project.category === 'ai-fullstack';
+
+  // Dynamic Icon mapping
+  const CategoryIcon = project.id === 'sql-sales-analysis' 
+    ? BarChart3 
+    : isAIFullStack 
+    ? Brain 
+    : isML 
+    ? Binary 
+    : Database;
+
+  // GPU accelerated entrance and exit animation variants
+  const slideVariants: Variants = {
+    hidden: prefersReducedMotion ? { opacity: 0 } : {
+      opacity: 0,
+      y: 80,
+      scale: 0.96,
+      filter: 'blur(10px)'
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      transition: {
+        duration: 0.8,
+        ease: [0.42, 0, 0.58, 1],
+        when: "beforeChildren",
+        staggerChildren: 0.1
+      }
+    },
+    exit: prefersReducedMotion ? { opacity: 0.2 } : {
+      opacity: 0.2,
+      y: -40,
+      scale: 0.96,
+      filter: 'blur(4px)',
+      transition: {
+        duration: 0.6,
+        ease: [0.42, 0, 0.58, 1]
+      }
+    }
+  };
+
+  // Title variants (Opacity 0 -> 100, TranslateY 40px -> 0, Duration 0.7s)
+  const titleVariants: Variants = {
+    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.7, ease: "easeOut" }
+    }
+  };
+
+  // Description variants (fades in after title with 200ms delay)
+  const descVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.6, delay: 0.2, ease: "easeOut" }
+    }
+  };
+
+  // Key Outcomes variants (fades in, slides from left, staggered)
+  const outcomeItemVariants: Variants = {
+    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -15 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.4, ease: "easeOut" }
+    }
+  };
+
+  // Tech stack chips variants (sequential upwards motion with 60ms delay between chips)
+  const chipContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.06,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const chipItemVariants: Variants = {
+    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 15 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeOut" }
+    }
+  };
+
+
+  return (
+    <section 
+      id={`project-slide-${index}`}
+      ref={slideRef}
+      className="project-snap-slide h-screen w-full relative flex flex-col justify-center items-center overflow-hidden px-4 md:px-8 py-10 select-none"
+    >
+      {/* Animated Cyber Background Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none z-0">
+        {/* Slow moving gradient light nodes */}
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl animate-ambient-light" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-ambient-light" style={{ animationDelay: '-6s' }} />
+
+        {/* Floating Glowing Particles */}
+        <div className="absolute top-1/3 left-1/5 w-2 h-2 rounded-full bg-indigo-400/50 blur-[1px] animate-float-particle" />
+        <div className="absolute top-2/3 right-1/4 w-3 h-3 rounded-full bg-purple-400/40 blur-[1px] animate-float-particle" style={{ animationDelay: '-3s' }} />
+        <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 rounded-full bg-cyan-400/50 blur-[1px] animate-float-particle" style={{ animationDelay: '-5s' }} />
+
+        {/* Cyber Grid Lines Overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+      </div>
+
+      {/* Main Glass Showcase Card Container */}
+      <motion.div
+        variants={slideVariants}
+        initial="hidden"
+        animate={isInView ? "visible" : "exit"}
+        className="relative z-10 w-full max-w-5xl bg-slate-900/70 border border-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl overflow-hidden animate-neon-border flex flex-col justify-between max-h-[86vh] overflow-y-auto no-scrollbar"
+      >
+        {/* Ambient Corner Accent */}
+        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-indigo-500/15 via-purple-500/5 to-transparent blur-2xl pointer-events-none" />
+
+        <div>
+          {/* Top Category & Links Header */}
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-white/10 pb-4">
+            
+            <div className="flex items-center space-x-3">
+              <div className={`p-2.5 rounded-xl border ${
+                isAIFullStack
+                  ? 'bg-purple-500/10 border-purple-500/30 text-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.25)]'
+                  : isML 
+                  ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.25)]' 
+                  : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+              }`}>
+                <CategoryIcon className="w-5 h-5" />
+              </div>
+              <div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400 font-bold">
+                    PROJECT 0{index + 1} / 0{totalProjects}
+                  </span>
+                  <span className="text-slate-600">•</span>
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
+                    {project.categoryLabel || (isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE')}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Top-Right GitHub & Live Actions */}
+            <div className="flex items-center space-x-3">
+              {project.liveUrl && (
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-3 py-1.5 bg-indigo-500/10 hover:bg-indigo-500/20 border border-indigo-500/30 hover:border-indigo-400 text-indigo-300 hover:text-white rounded-xl transition-all duration-300 hover:scale-105 flex items-center space-x-1.5 text-xs font-mono"
+                  title="View Live Demo"
+                >
+                  <span>LIVE DEMO</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              )}
+              {project.githubUrl && (
+                <a
+                  id={`github-link-${project.id}`}
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="p-2.5 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/60 text-slate-300 hover:text-white rounded-xl transition-all duration-300 hover:rotate-12 hover:scale-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] cursor-pointer"
+                  title="View Source on GitHub"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
+              )}
+            </div>
+
+          </div>
+
+          {/* Large Project Title */}
+          <motion.div variants={titleVariants} className="mb-4">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white font-display leading-tight">
+              {project.name}
+            </h3>
+            {project.tagline && (
+              <p className="text-xs sm:text-sm font-mono text-indigo-300 mt-2">
+                {project.tagline}
+              </p>
+            )}
+          </motion.div>
+
+          {/* Professional Description */}
+          <motion.p 
+            variants={descVariants} 
+            className="text-slate-300 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-3xl"
+          >
+            {project.description}
+          </motion.p>
+
+          {/* Key Outcomes / Metrics */}
+          <div className="mb-6">
+            <div className="flex items-center space-x-2 text-xs font-mono text-indigo-400 uppercase tracking-wider mb-3">
+              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <span>KEY OUTCOMES / METRICS</span>
+            </div>
+            
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              {project.outcomes.map((outcome, idx) => (
+                <motion.li
+                  key={idx}
+                  variants={outcomeItemVariants}
+                  className="flex items-start space-x-3 text-xs md:text-sm text-slate-200 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 p-3 rounded-xl transition-colors"
+                >
+                  <span className="text-indigo-400 font-bold mt-0.5 shrink-0 bg-indigo-500/10 p-1 rounded-md">✓</span>
+                  <span className="leading-snug">{outcome}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Footer with Technology Chips & Registry ID */}
+        <div className="border-t border-white/10 pt-4 mt-2 flex flex-wrap items-center justify-between gap-4">
+          
+          {/* Technology Chips */}
+          <motion.div 
+            variants={chipContainerVariants}
+            className="flex flex-wrap gap-2 items-center"
+          >
+            <div className="flex items-center space-x-1.5 text-[10px] font-mono text-slate-500 uppercase mr-1">
+              <Layers className="w-3 h-3" />
+              <span>TECH STACK:</span>
+            </div>
+            {project.technologies.map((tech) => (
+              <motion.span
+                key={tech}
+                variants={chipItemVariants}
+                className="text-[11px] font-mono bg-slate-950/80 border border-white/10 text-slate-300 px-3 py-1.5 rounded-lg shadow-sm hover:border-indigo-400/60 hover:text-indigo-200 hover:-translate-y-[3px] hover:shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-all duration-200 cursor-default"
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </motion.div>
+
+          {/* Registry ID Tag */}
+          <div className="text-[10px] font-mono text-slate-400 flex items-center space-x-2 bg-slate-950/80 border border-white/10 px-3 py-1.5 rounded-lg shadow-sm">
+            <span className="text-slate-500">REGISTRY ID:</span>
+            <span className="text-indigo-300 font-bold uppercase tracking-wider">{project.id}</span>
+          </div>
+
+        </div>
+
+      </motion.div>
+
+      {/* Downward Scroll Indicator */}
+      {index < totalProjects - 1 && (
+        <motion.div 
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-3 left-1/2 -translate-x-1/2 text-slate-500 flex flex-col items-center pointer-events-none z-20"
+        >
+          <span className="text-[9px] font-mono tracking-widest text-slate-500 uppercase mb-1">SCROLL NEXT</span>
+          <ChevronDown className="w-4 h-4 text-indigo-400" />
+        </motion.div>
+      )}
+    </section>
+  );
+}
+
+export default function ProjectCommandCenter() {
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0);
+
+  const scrollToProject = (index: number) => {
+    setActiveProjectIndex(index);
+    const element = document.getElementById(`project-slide-${index}`);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <motion.section 
+    <div 
       id="project-command-center" 
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ perspective: 1000 }}
-      className="py-24 border-b border-white/5 relative bg-black/40"
+      className="project-snap-container no-scrollbar relative w-full bg-slate-950 text-slate-100 overflow-hidden"
     >
-      {/* Background Decorative Radial Mask */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="max-w-7xl mx-auto px-6 relative z-10 select-none">
-        
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center space-x-2 bg-purple-500/10 border border-purple-500/30 text-purple-400 px-3 py-1 rounded-full text-xs font-mono mb-4">
-              <FolderGit2 className="w-3.5 h-3.5" />
-              <span>PROJECT COMMAND CENTER</span>
-            </div>
-            <h2 className="text-4xl font-bold tracking-tight text-white font-display">
-              Machine Learning & Query Engines
-            </h2>
-            <p className="mt-4 text-slate-400 text-sm leading-relaxed">
-              Engineered using local data processing models, database mapping algorithms, and predictive workflows. Strict static audit verification complete.
-            </p>
-          </div>
-          <div className="flex items-center space-x-2 bg-slate-900 border border-white/5 px-4 py-2 rounded-xl text-xs font-mono text-slate-400">
-            <Activity className="w-4 h-4 text-emerald-400 animate-pulse" />
-            <span>ALL MODULES IN COLD DEPLOYMENT</span>
-          </div>
-        </div>
-
-        {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {PROJECT_LIST.map((proj) => {
-            const isML = proj.category === 'ml';
-            const isAIFullStack = proj.category === 'ai-fullstack';
-
-            return (
-              <motion.div
-                id={`project-card-${proj.id}`}
-                key={proj.id}
-                onClick={() => handleCardClick(proj)}
-                whileHover={{ 
-                  rotateX: 4, 
-                  rotateY: -4, 
-                  y: -6, 
-                  boxShadow: "0 25px 50px -12px rgba(99, 102, 241, 0.2)",
-                  transition: { duration: 0.25 }
-                }}
-                animate={activeCardId === proj.id ? { 
-                  scale: 1.02, 
-                  z: 25,
-                  boxShadow: "0 35px 70px -10px rgba(99, 102, 241, 0.4)",
-                  borderColor: "rgba(129, 140, 248, 0.55)"
-                } : {}}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                style={{ transformStyle: 'preserve-3d' }}
-                className="relative bg-gradient-to-b from-slate-950 to-slate-900/60 border border-white/5 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.1)] hover:border-indigo-500/35 rounded-2xl p-8 hover:shadow-[0_20px_40px_-15px_rgba(79,70,229,0.15)] transition-all duration-300 overflow-hidden flex flex-col justify-between group cursor-pointer"
-              >
-                {/* Embedded Glow Accent */}
-                <div className="absolute top-0 right-0 w-48 h-48 bg-gradient-to-br from-indigo-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity blur-2xl pointer-events-none" />
-
-                <div>
-                  {/* Top line with category indicators */}
-                  <div className="flex justify-between items-center mb-6">
-                    <div className="flex items-center space-x-3">
-                      <div className={`p-2.5 rounded-xl border ${
-                        isAIFullStack
-                          ? 'bg-purple-500/10 border-purple-500/20 text-purple-400'
-                          : isML 
-                          ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' 
-                          : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
-                      }`}>
-                        {proj.id === 'sql-sales-analysis' ? <BarChart3 className="w-5 h-5" /> : isAIFullStack ? <Brain className="w-5 h-5" /> : isML ? <Binary className="w-5 h-5" /> : <Database className="w-5 h-5" />}
-                      </div>
-                      <div>
-                        <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
-                          {proj.categoryLabel || (isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE')}
-                        </span>
-                        <h4 className="text-sm font-semibold text-white group-hover:text-indigo-400 transition-colors">
-                          {proj.name}
-                        </h4>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center space-x-2">
-                      <a
-                        id={`github-link-${proj.id}`}
-                        href={proj.githubUrl}
-                        target="_blank"
-                        rel="noreferrer referrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="p-1.5 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all"
-                      >
-                        <Github className="w-4 h-4" />
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Description Box */}
-                  <p className="text-slate-400 text-xs leading-relaxed mb-6 font-sans">
-                    {proj.description}
-                  </p>
-
-                  {/* Outcome list */}
-                  <div className="space-y-3 mb-6">
-                    <span className="text-[10px] font-mono text-slate-500 uppercase tracking-widest block">
-                      KEY OUTCOMES / METRICS
-                    </span>
-                    <ul className="space-y-2">
-                      {proj.outcomes.map((outcome, idx) => (
-                        <li key={idx} className="flex items-start text-xs text-slate-300 leading-normal">
-                          <span className="text-indigo-500 mr-2 font-bold mt-0.5">✓</span>
-                          <span>{outcome}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                {/* Footer with technologies and stats */}
-                <div className="border-t border-white/5 pt-5 flex flex-wrap gap-2 items-center justify-between">
-                  <div className="flex flex-wrap gap-1.5">
-                    {proj.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="text-[9px] font-mono bg-slate-900 border border-white/5 text-slate-400 px-2.5 py-1 rounded-md"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-
-                  <span className="text-[10px] font-mono text-slate-500 flex items-center space-x-1 bg-white/[0.01] border border-white/5 px-2.5 py-1 rounded-md">
-                    <span>REGISTRY ID:</span>
-                    <span className="text-indigo-300 font-bold uppercase">{proj.id}</span>
-                  </span>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+      {/* Header Badge Overlay */}
+      <div className="absolute top-4 left-6 z-30 pointer-events-none hidden md:flex items-center space-x-2 bg-slate-900/80 border border-white/10 px-3.5 py-1.5 rounded-full text-xs font-mono text-slate-300 backdrop-blur-md shadow-lg">
+        <FolderGit2 className="w-3.5 h-3.5 text-indigo-400" />
+        <span className="text-purple-300 font-bold">PROJECT COMMAND CENTER</span>
+        <span className="text-slate-500">•</span>
+        <span className="text-slate-400 text-[11px]">FULL-SCREEN SHOWCASE</span>
       </div>
-    </motion.section>
+
+      {/* Floating Side Project Pagination Dots */}
+      <nav 
+        aria-label="Project Navigation"
+        className="fixed right-4 sm:right-6 top-1/2 -translate-y-1/2 z-40 flex flex-col items-end space-y-4 pointer-events-auto"
+      >
+        {PROJECT_LIST.map((proj, idx) => {
+          const isActive = activeProjectIndex === idx;
+          return (
+            <button
+              key={proj.id}
+              onClick={() => scrollToProject(idx)}
+              className="group flex items-center space-x-3 cursor-pointer focus:outline-none"
+              aria-label={`Scroll to ${proj.name}`}
+            >
+              {/* Tooltip label on hover */}
+              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-slate-900/90 border border-white/10 px-3 py-1 rounded-lg shadow-xl pointer-events-none whitespace-nowrap backdrop-blur-md">
+                0{idx + 1}. {proj.name}
+              </span>
+              
+              {/* Pagination Dot */}
+              <div className={`relative flex items-center justify-center transition-all duration-300 ${
+                isActive ? 'w-4 h-4' : 'w-3 h-3'
+              }`}>
+                {isActive && (
+                  <span className="absolute inset-0 rounded-full bg-indigo-500/40 animate-ping" />
+                )}
+                <div className={`w-full h-full rounded-full transition-all duration-300 border ${
+                  isActive 
+                    ? 'bg-indigo-500 border-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.9)] scale-110' 
+                    : 'bg-slate-800/80 border-slate-600 hover:border-indigo-400 hover:bg-slate-700'
+                }`} />
+              </div>
+            </button>
+          );
+        })}
+      </nav>
+
+      {/* Viewport Slides */}
+      {PROJECT_LIST.map((proj, idx) => (
+        <ProjectSlide
+          key={proj.id}
+          project={proj}
+          index={idx}
+          totalProjects={PROJECT_LIST.length}
+          onInView={(inViewIdx) => setActiveProjectIndex(inViewIdx)}
+        />
+      ))}
+    </div>
   );
 }
+
