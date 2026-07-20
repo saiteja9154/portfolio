@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { PROJECT_LIST } from '../data';
 import { motion } from 'motion/react';
-import { FolderGit2, Github, Database, Binary, Activity, Brain } from 'lucide-react';
+import { FolderGit2, Github, Database, Binary, Activity, Brain, BarChart3 } from 'lucide-react';
 import { Project } from '../types';
 
 export default function ProjectCommandCenter() {
@@ -50,7 +50,7 @@ export default function ProjectCommandCenter() {
         </div>
 
         {/* Project Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PROJECT_LIST.map((proj) => {
             const isML = proj.category === 'ml';
             const isAIFullStack = proj.category === 'ai-fullstack';
@@ -91,11 +91,11 @@ export default function ProjectCommandCenter() {
                           ? 'bg-indigo-500/10 border-indigo-500/20 text-indigo-400' 
                           : 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400'
                       }`}>
-                        {isAIFullStack ? <Brain className="w-5 h-5" /> : isML ? <Binary className="w-5 h-5" /> : <Database className="w-5 h-5" />}
+                        {proj.id === 'sql-sales-analysis' ? <BarChart3 className="w-5 h-5" /> : isAIFullStack ? <Brain className="w-5 h-5" /> : isML ? <Binary className="w-5 h-5" /> : <Database className="w-5 h-5" />}
                       </div>
                       <div>
                         <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500">
-                          {isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE'}
+                          {proj.categoryLabel || (isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE')}
                         </span>
                         <h4 className="text-sm font-semibold text-white group-hover:text-indigo-400 transition-colors">
                           {proj.name}

@@ -130,6 +130,21 @@ export const PROJECT_LIST: Project[] = [
       "In-browser SQL Playground: Integrate SQLite WASM to let users run generated queries directly in their browser.",
       "Schema Autodetection: Connect directly to live PostgreSQL/MySQL development databases to parse tables on the fly."
     ]
+  },
+  {
+    id: "sql-sales-analysis",
+    name: "SQL Sales Analysis",
+    description: "Developed a comprehensive SQL-based sales analytics project using a real-world retail dataset to analyze business performance, customer behavior, and product trends. Applied advanced SQL techniques to transform raw transactional data into actionable business insights that support strategic decision-making.",
+    technologies: ["SQL", "MySQL", "Database Design", "Joins", "CTEs", "Window Functions", "Subqueries", "Aggregations", "Data Analysis", "Business Intelligence", "Sales Analytics"],
+    outcomes: [
+      "Designed and queried a relational sales database using normalized tables.",
+      "Wrote advanced SQL queries utilizing JOINs, GROUP BY, HAVING, CASE, Subqueries, CTEs, Window Functions, and Aggregate Functions.",
+      "Identified top-performing products, customers, regions, and sales trends through business-driven analytical queries.",
+      "Generated actionable insights for revenue growth, customer segmentation, and inventory planning using real-world business scenarios."
+    ],
+    githubUrl: "https://github.com/saiteja9154/SQL-Sales-Analysis",
+    category: "data",
+    categoryLabel: "DATA ANALYTICS ENGINE"
   }
 ];
 
@@ -163,7 +178,7 @@ export const SKILL_MATRIX_DATA: SkillItem[] = [
   {
     name: "SQL",
     category: "Languages",
-    relatedProjects: ["AI SQL Query Generator", "SQLSense AI"],
+    relatedProjects: ["AI SQL Query Generator", "SQLSense AI", "SQL Sales Analysis"],
     relatedCertifications: ["Google Data Analytics Certification"],
     experienceEvidence: "Conceptualized and coded natural language mapping rules to automate SELECT operations, JOIN filters, WHERE queries, and aggregated summaries. Skilled in query profiling and data fetching layouts.",
     resumeReferences: "Languages: SQL | Projects: AI SQL Query Generator | Certifications: Google Data Analytics"

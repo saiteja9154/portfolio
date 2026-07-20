@@ -23,6 +23,7 @@ export interface Project {
   githubUrl: string;
   liveUrl?: string;
   category: 'ml' | 'data' | 'system' | 'ai-fullstack';
+  categoryLabel?: string;
   tagline?: string;
   problemStatement?: string;
   solution?: string;

@@ -104,7 +104,7 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
     },
     {
       id: "check-project-count",
-      label: <>Key Analytical Projects: <b className="text-white font-bold"><AnimatedCounter value={2} /></b></>,
+      label: <>Key Analytical Projects: <b className="text-white font-bold"><AnimatedCounter value={4} /></b></>,
       targetId: "project-command-center"
     }
   ];
