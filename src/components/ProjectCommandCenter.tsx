@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { PROJECT_LIST } from '../data';
-import { motion, useInView, useReducedMotion, Variants } from 'motion/react';
+import { motion, useInView, useReducedMotion } from 'motion/react';
 import { 
   FolderGit2, 
   Github, 
@@ -49,89 +49,6 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
     ? Binary 
     : Database;
 
-  // GPU accelerated entrance and exit animation variants
-  const slideVariants: Variants = {
-    hidden: prefersReducedMotion ? { opacity: 0 } : {
-      opacity: 0,
-      y: 80,
-      scale: 0.96,
-      filter: 'blur(10px)'
-    },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      filter: 'blur(0px)',
-      transition: {
-        duration: 0.8,
-        ease: [0.42, 0, 0.58, 1],
-        when: "beforeChildren",
-        staggerChildren: 0.1
-      }
-    },
-    exit: prefersReducedMotion ? { opacity: 0.2 } : {
-      opacity: 0.2,
-      y: -40,
-      scale: 0.96,
-      filter: 'blur(4px)',
-      transition: {
-        duration: 0.6,
-        ease: [0.42, 0, 0.58, 1]
-      }
-    }
-  };
-
-  // Title variants (Opacity 0 -> 100, TranslateY 40px -> 0, Duration 0.7s)
-  const titleVariants: Variants = {
-    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 40 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.7, ease: "easeOut" }
-    }
-  };
-
-  // Description variants (fades in after title with 200ms delay)
-  const descVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { duration: 0.6, delay: 0.2, ease: "easeOut" }
-    }
-  };
-
-  // Key Outcomes variants (fades in, slides from left, staggered)
-  const outcomeItemVariants: Variants = {
-    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, x: -15 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.4, ease: "easeOut" }
-    }
-  };
-
-  // Tech stack chips variants (sequential upwards motion with 60ms delay between chips)
-  const chipContainerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.06,
-        delayChildren: 0.3
-      }
-    }
-  };
-
-  const chipItemVariants: Variants = {
-    hidden: prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 15 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.3, ease: "easeOut" }
-    }
-  };
-
-
   return (
     <section 
       id={`project-slide-${index}`}
@@ -155,9 +72,10 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
 
       {/* Main Glass Showcase Card Container */}
       <motion.div
-        variants={slideVariants}
-        initial="hidden"
-        animate={isInView ? "visible" : "exit"}
+        initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0, y: 25, scale: 0.96 }}
+        whileInView={{ opacity: 1, y: 0, scale: 1 }}
+        viewport={{ once: true, amount: 0.35 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
         className="relative z-10 w-full max-w-5xl bg-slate-900/70 border border-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl overflow-hidden animate-neon-border flex flex-col justify-between max-h-[86vh] overflow-y-auto no-scrollbar"
       >
         {/* Ambient Corner Accent */}
@@ -221,7 +139,7 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
           </div>
 
           {/* Large Project Title */}
-          <motion.div variants={titleVariants} className="mb-4">
+          <div className="mb-4">
             <h3 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white font-display leading-tight">
               {project.name}
             </h3>
@@ -230,15 +148,12 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
                 {project.tagline}
               </p>
             )}
-          </motion.div>
+          </div>
 
           {/* Professional Description */}
-          <motion.p 
-            variants={descVariants} 
-            className="text-slate-300 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-3xl"
-          >
+          <p className="text-slate-300 text-sm md:text-base leading-relaxed mb-6 font-sans max-w-3xl">
             {project.description}
-          </motion.p>
+          </p>
 
           {/* Key Outcomes / Metrics */}
           <div className="mb-6">
@@ -249,14 +164,13 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
             
             <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {project.outcomes.map((outcome, idx) => (
-                <motion.li
+                <li
                   key={idx}
-                  variants={outcomeItemVariants}
                   className="flex items-start space-x-3 text-xs md:text-sm text-slate-200 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 p-3 rounded-xl transition-colors"
                 >
                   <span className="text-indigo-400 font-bold mt-0.5 shrink-0 bg-indigo-500/10 p-1 rounded-md">✓</span>
                   <span className="leading-snug">{outcome}</span>
-                </motion.li>
+                </li>
               ))}
             </ul>
           </div>
@@ -266,24 +180,20 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
         <div className="border-t border-white/10 pt-4 mt-2 flex flex-wrap items-center justify-between gap-4">
           
           {/* Technology Chips */}
-          <motion.div 
-            variants={chipContainerVariants}
-            className="flex flex-wrap gap-2 items-center"
-          >
+          <div className="flex flex-wrap gap-2 items-center">
             <div className="flex items-center space-x-1.5 text-[10px] font-mono text-slate-500 uppercase mr-1">
               <Layers className="w-3 h-3" />
               <span>TECH STACK:</span>
             </div>
             {project.technologies.map((tech) => (
-              <motion.span
+              <span
                 key={tech}
-                variants={chipItemVariants}
                 className="text-[11px] font-mono bg-slate-950/80 border border-white/10 text-slate-300 px-3 py-1.5 rounded-lg shadow-sm hover:border-indigo-400/60 hover:text-indigo-200 hover:-translate-y-[3px] hover:shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-all duration-200 cursor-default"
               >
                 {tech}
-              </motion.span>
+              </span>
             ))}
-          </motion.div>
+          </div>
 
           {/* Registry ID Tag */}
           <div className="text-[10px] font-mono text-slate-400 flex items-center space-x-2 bg-slate-950/80 border border-white/10 px-3 py-1.5 rounded-lg shadow-sm">
