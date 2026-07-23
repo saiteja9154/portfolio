@@ -21,7 +21,7 @@ export default function ContactHub() {
       value: PERSONAL_INFO.email,
       href: `mailto:${PERSONAL_INFO.email}`,
       icon: Mail,
-      color: 'text-indigo-400 border-indigo-505/10 bg-indigo-505/5',
+      color: 'text-[#4F7CFF] border-indigo-500/20 bg-indigo-500/10 shadow-[0_0_8px_rgba(79,124,255,0.15)]',
     },
     {
       id: 'phone',
@@ -29,7 +29,7 @@ export default function ContactHub() {
       value: PERSONAL_INFO.phone,
       href: `tel:${PERSONAL_INFO.phone.replace(/\s+/g, '')}`,
       icon: Phone,
-      color: 'text-purple-400 border-purple-505/10 bg-purple-505/5',
+      color: 'text-[#00D9FF] border-[#00D9FF]/20 bg-[#00D9FF]/10 shadow-[0_0_8px_rgba(0,217,255,0.15)]',
     },
     {
       id: 'linkedin',
@@ -37,7 +37,7 @@ export default function ContactHub() {
       value: PERSONAL_INFO.linkedin,
       href: `https://${PERSONAL_INFO.linkedin}`,
       icon: Linkedin,
-      color: 'text-emerald-400 border-emerald-505/10 bg-emerald-505/5',
+      color: 'text-emerald-400 border-emerald-400/20 bg-emerald-400/10 shadow-[0_0_8px_rgba(16,185,129,0.15)]',
     },
     {
       id: 'github',
@@ -45,7 +45,7 @@ export default function ContactHub() {
       value: PERSONAL_INFO.github,
       href: `https://${PERSONAL_INFO.github}`,
       icon: Github,
-      color: 'text-amber-400 border-amber-550/10 bg-amber-550/5',
+      color: 'text-amber-400 border-amber-400/20 bg-amber-400/10 shadow-[0_0_8px_rgba(245,158,11,0.15)]',
     }
   ];
 
@@ -56,8 +56,7 @@ export default function ContactHub() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ perspective: 1000 }}
-      className="py-24 relative select-none bg-slate-950/20"
+      className="py-24 relative select-none bg-transparent"
     >
       
       {/* Decorative Blur Accent Glow grids */}
@@ -67,8 +66,8 @@ export default function ContactHub() {
         
         {/* Core Header info */}
         <div className="max-w-2xl text-center mx-auto mb-16">
-          <div className="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-505/30 text-indigo-400 px-3 py-1 rounded-full text-xs font-mono mb-4">
-            <Send className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 px-3 py-1 rounded-full text-xs font-mono mb-4">
+            <Send className="w-3.5 h-3.5 text-[#00D9FF]" />
             <span>ESTABLISH SECURE LINK</span>
           </div>
           <h2 className="text-4xl font-extrabold tracking-tight text-white font-display">
@@ -92,11 +91,11 @@ export default function ContactHub() {
                 href={c.href}
                 target={c.id === 'linkedin' || c.id === 'github' ? '_blank' : undefined}
                 rel={c.id === 'linkedin' || c.id === 'github' ? 'noopener noreferrer' : undefined}
-                whileHover={{ rotateX: 4, rotateY: -4, scale: 1.01 }}
-                style={{ transformStyle: 'preserve-3d' }}
-                className="bg-slate-900/30 border border-white/5 border-t-white/15 shadow-[inset_0_1px_0px_rgba(255,255,255,0.08)] hover:border-white/12 rounded-2xl p-6 flex items-center justify-between transition-all group cursor-pointer"
+                whileHover={{ y: -4 }}
+                className="premium-glass-card rounded-2xl p-6 flex items-center justify-between transition-all group cursor-pointer"
               >
                 <div className="flex items-center space-x-4 min-w-0">
+                  <span className="card-status-dot" />
                   <div className={`p-3 rounded-xl border ${c.color} text-slate-200`}>
                     <Icon className="w-5 h-5" />
                   </div>
@@ -106,7 +105,7 @@ export default function ContactHub() {
                     </span>
                     <span
                       id={`contact-link-tag-${c.id}`}
-                      className="text-xs text-slate-200 group-hover:text-indigo-400 font-mono transition-colors block truncate font-semibold mt-0.5"
+                      className="text-xs text-slate-200 group-hover:text-[#00D9FF] font-mono transition-colors block truncate font-semibold mt-0.5"
                     >
                       {c.value}
                     </span>
@@ -118,7 +117,7 @@ export default function ContactHub() {
                   <button
                     id={`contact-copy-button-${c.id}`}
                     onClick={(e) => handleCopy(e, c.id === 'github' ? c.href : c.value, c.id)}
-                    className="p-2 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all relative z-10"
+                    className="p-2 bg-white/5 hover:bg-indigo-500/20 border border-white/5 hover:border-indigo-500/30 text-slate-400 hover:text-white rounded-lg transition-all relative z-10 cursor-pointer"
                     title="Copy Handle"
                   >
                     {isCopied ? (

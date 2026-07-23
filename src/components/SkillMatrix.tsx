@@ -22,12 +22,8 @@ export default function SkillMatrix() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ perspective: 1000 }}
-      className="py-24 border-b border-white/5 relative bg-slate-950/60 overflow-hidden select-none"
+      className="py-24 border-b border-indigo-500/5 relative bg-transparent overflow-hidden select-none"
     >
-      {/* Visual Context Grid bg */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem] pointer-events-none" />
-
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Section Header */}
@@ -54,31 +50,33 @@ export default function SkillMatrix() {
                 id={`skill-card-${skill.name.toLowerCase().replace(/\s+/g, '-')}`}
                 key={skill.name}
                 layout
-                whileHover={{ rotateX: 4, rotateY: -4, scale: 1.01 }}
-                style={{ transformStyle: 'preserve-3d' }}
+                whileHover={{ y: -4 }}
                 onClick={() => toggleSkill(skill.name)}
-                className={`relative cursor-pointer group bg-slate-900/40 hover:bg-slate-900/60 border border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.1)] rounded-2xl transition-all duration-300 p-6 flex flex-col justify-between overflow-hidden ${
+                className={`relative cursor-pointer group premium-glass-card p-6 flex flex-col justify-between overflow-hidden ${
                   isExpanded 
-                    ? 'border-indigo-500 shadow-[0_0_30px_-5px_rgba(99,102,241,0.25)] col-span-1 md:col-span-2 lg:col-span-1' 
-                    : 'border-white/5 hover:border-white/10'
+                    ? 'border-[#00D9FF]! shadow-[0_0_30px_rgba(0,217,255,0.2)] col-span-1 md:col-span-2 lg:col-span-1' 
+                    : ''
                 }`}
               >
                 <div>
                   {/* Category Header */}
                   <div className="flex justify-between items-center mb-4">
-                    <span className="text-[10px] font-mono text-indigo-400 uppercase bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">
-                      {skill.category}
-                    </span>
+                    <div className="flex items-center space-x-2">
+                      <span className="card-status-dot" />
+                      <span className="text-[10px] font-mono text-indigo-400 uppercase bg-indigo-500/10 border border-indigo-500/20 px-2.5 py-0.5 rounded-full">
+                        {skill.category}
+                      </span>
+                    </div>
                     <motion.div 
                       animate={{ rotate: isExpanded ? 45 : 0 }}
                       className="text-slate-500 group-hover:text-slate-300 transition-colors"
                     >
-                      <ArrowUpRight className="w-4 h-4" />
+                      <ArrowUpRight className="w-4 h-4 text-[#00D9FF]" />
                     </motion.div>
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-lg font-bold font-display text-white group-hover:text-indigo-300 transition-colors">
+                  <h3 className="text-lg font-bold font-display text-white group-hover:text-indigo-400 transition-colors">
                     {skill.name}
                   </h3>
 
@@ -163,7 +161,7 @@ export default function SkillMatrix() {
                       <div className="text-[10px] font-mono text-slate-500 flex items-center space-x-1 border-t border-white/5 pt-3">
                         <Search className="w-3.5 h-3.5 text-indigo-400" />
                         <span>LOCATED IN:</span>
-                        <span className="text-violet-400">{skill.resumeReferences}</span>
+                        <span className="text-[#00D9FF]">{skill.resumeReferences}</span>
                       </div>
                     </motion.div>
                   )}

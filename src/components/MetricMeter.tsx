@@ -29,7 +29,7 @@ export function RadialProgress({ percentage, size = 120, strokeWidth = 10, glow 
           cy={size / 2}
           r={radius}
           fill="transparent"
-          stroke="rgba(30, 41, 59, 0.5)"
+          stroke="rgba(30, 41, 59, 0.4)"
           strokeWidth={strokeWidth}
         />
         {/* Fill */}
@@ -50,14 +50,14 @@ export function RadialProgress({ percentage, size = 120, strokeWidth = 10, glow 
         />
         <defs>
           <linearGradient id="indigoPurpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#6366f1" />
-            <stop offset="100%" stopColor="#a855f7" />
+            <stop offset="0%" stopColor="#4F7CFF" />
+            <stop offset="100%" stopColor="#00D9FF" />
           </linearGradient>
         </defs>
       </svg>
       {glow && (
         <div
-          className="absolute rounded-full pointer-events-none opacity-20 blur-xl bg-gradient-to-tr from-indigo-500 to-purple-500"
+          className="absolute rounded-full pointer-events-none opacity-25 blur-xl bg-gradient-to-tr from-[#4F7CFF] to-[#00D9FF]"
           style={{ width: size - strokeWidth, height: size - strokeWidth }}
         />
       )}
@@ -65,7 +65,7 @@ export function RadialProgress({ percentage, size = 120, strokeWidth = 10, glow 
         <span className="text-2xl font-bold tracking-tight text-white font-display">
           {percentage}%
         </span>
-        <span className="text-[9px] font-mono tracking-widest text-slate-400 uppercase">
+        <span className="text-[9px] font-mono tracking-widest text-[#00D9FF] font-bold">
           TRUSTED
         </span>
       </div>
@@ -111,7 +111,7 @@ interface SparklineProps {
   color?: string;
 }
 
-export function Sparkline({ data, color = 'stroke-indigo-500' }: SparklineProps) {
+export function Sparkline({ data, color = 'stroke-[#00D9FF]' }: SparklineProps) {
   const width = 120;
   const height = 40;
   const padding = 2;
@@ -133,8 +133,8 @@ export function Sparkline({ data, color = 'stroke-indigo-500' }: SparklineProps)
       {/* Background Gradient Area */}
       <defs>
         <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#6366f1" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#6366f1" stopOpacity="0" />
+          <stop offset="0%" stopColor="#4F7CFF" stopOpacity="0.15" />
+          <stop offset="100%" stopColor="#00D9FF" stopOpacity="0" />
         </linearGradient>
       </defs>
       <path

@@ -11,7 +11,6 @@ interface HeroProps {
 
 export default function HeroSection({ onOpenAuditReport }: HeroProps) {
 
-
   const [isSpinning, setIsSpinning] = useState(false);
   const [animationKey, setAnimationKey] = useState(0);
 
@@ -60,15 +59,15 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
     hidden: { 
       opacity: 0, 
       scale: 0.9, 
-      boxShadow: "0 0 0px rgba(99, 102, 241, 0)" 
+      boxShadow: "0 0 0px rgba(0, 217, 255, 0)" 
     },
     visible: { 
       opacity: 1, 
       scale: 1,
       boxShadow: [
-        "0 0 0px rgba(99, 102, 241, 0)",
-        "0 0 16px rgba(99, 102, 241, 0.45)",
-        "0 0 0px rgba(99, 102, 241, 0)"
+        "0 0 0px rgba(0, 217, 255, 0)",
+        "0 0 16px rgba(0, 217, 255, 0.35)",
+        "0 0 0px rgba(0, 217, 255, 0)"
       ],
       transition: {
         boxShadow: {
@@ -109,18 +108,16 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
     }
   ];
 
-
-
   // Scroll utilities
   const scrollSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="hero-section" className="relative pt-32 pb-24 border-b border-white/5 bg-slate-950 overflow-hidden select-none" style={{ perspective: 1000 }}>
+    <section id="hero-section" className="relative pt-32 pb-24 border-b border-indigo-500/5 bg-transparent overflow-hidden select-none">
       {/* Decorative Particle Background Layout */}
-      <div className="absolute top-0 inset-x-0 h-[450px] bg-gradient-to-b from-indigo-500/10 via-transparent to-transparent pointer-events-none" />
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none animate-pulse" />
+      <div className="absolute top-0 inset-x-0 h-[450px] bg-gradient-to-b from-indigo-500/5 via-transparent to-transparent pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none animate-pulse" />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:items-center">
         
@@ -136,20 +133,20 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
           <div className="flex items-center space-x-6">
             <div
               id="profile-avatar-container"
-              className="relative w-24 h-24 rounded-full bg-slate-900 border border-white/10 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.15)] flex items-center justify-center overflow-hidden group hover:border-indigo-500 hover:shadow-[0_0_30px_rgba(99,102,241,0.45)] transition-all duration-300 shrink-0"
+              className="relative w-24 h-24 rounded-full bg-slate-900 border border-indigo-500/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.05)] flex items-center justify-center overflow-hidden group hover:border-[#00D9FF] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300 shrink-0"
             >
               <img
                 id="profile-avatar-rendered"
                 src={profileImg}
                 alt="Sai Teja Revuri"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform referrerPolicy"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
                 referrerPolicy="no-referrer"
               />
             </div>
 
             <div>
               <div className="inline-flex items-center space-x-1.5 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 px-3 py-1 rounded-full text-xs font-mono">
-                <Sparkles className="w-3 h-3 animate-pulse" />
+                <Sparkles className="w-3 h-3 text-[#00D9FF] animate-pulse" />
                 <span>DATA PORTFOLIO METADATA</span>
               </div>
               <h1 className="text-3xl font-extrabold text-white tracking-tight mt-1 font-display">
@@ -174,18 +171,18 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
             <button
               id="cta-verify-resume-report"
               onClick={onOpenAuditReport}
-              className="px-6 py-3.5 bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs font-mono rounded-xl flex items-center space-x-2.5 transition-all shadow-md shadow-indigo-500/15 group"
+              className="px-6 py-3.5 premium-button font-bold text-xs font-mono rounded-xl flex items-center space-x-2.5 transition-all group cursor-pointer"
             >
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-[#10B981]" />
               <span>EXPLORE VERIFIED REGISTER</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-[#00D9FF]" />
             </button>
 
             {/* CTA 2: Projects scroll */}
             <button
               id="cta-project-explore"
               onClick={() => scrollSection('project-command-center')}
-              className="px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/5 hover:border-white/12 text-slate-200 font-bold text-xs font-mono rounded-xl flex items-center space-x-2.5 transition-all"
+              className="px-6 py-3.5 bg-slate-900/40 hover:bg-[#111827] border border-indigo-500/20 hover:border-[#00D9FF]/40 text-slate-200 hover:text-white font-bold text-xs font-mono rounded-xl flex items-center space-x-2.5 transition-all hover:shadow-[0_0_12px_rgba(79,124,255,0.15)] cursor-pointer"
             >
               <span>EXPLORE PROJECTS</span>
             </button>
@@ -194,12 +191,11 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
             <button
               id="cta-contact-init"
               onClick={() => scrollSection('contact-hub')}
-              className="px-6 py-3.5 bg-transparent text-slate-400 hover:text-white font-bold text-xs font-mono transition-colors flex items-center space-x-2"
+              className="px-6 py-3.5 bg-transparent text-slate-400 hover:text-[#00D9FF] font-bold text-xs font-mono transition-colors flex items-center space-x-2 cursor-pointer"
             >
               <span>CONNECT REGISTRY</span>
             </button>
           </div>
-
 
         </motion.div>
 
@@ -209,22 +205,18 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
           className="lg:col-span-5"
-          style={{ perspective: 1000 }}
         >
           <motion.div
             id="hero-verification-dashboard"
             whileHover={{ 
-              rotateX: 4, 
-              rotateY: -4,
-              scale: 1.01,
-              boxShadow: "0 25px 50px -12px rgba(99, 102, 241, 0.25)",
-              transition: { duration: 0.25, ease: "easeOut" }
+              y: -4,
+              boxShadow: "0 20px 40px -15px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 217, 255, 0.15)",
+              transition: { duration: 0.2, ease: "easeOut" }
             }}
-            style={{ transformStyle: 'preserve-3d' }}
-            className="relative bg-slate-900/60 border border-white/10 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,10,0.01)] rounded-2xl p-6 shadow-2xl space-y-6 backdrop-blur-xl transition-[border-color] duration-350"
+            className="relative premium-glass-card rounded-2xl p-6 space-y-6"
           >
             {/* Header section with indicators */}
-            <div className="flex justify-between items-center border-b border-white/5 pb-4">
+            <div className="flex justify-between items-center border-b border-indigo-500/10 pb-4">
               <div className="flex items-center space-x-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-ping" />
                 <span className="text-[11px] font-mono text-slate-400 uppercase tracking-widest font-bold">
@@ -297,16 +289,16 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
                     id={item.id}
                     variants={itemVariants}
                     whileHover={{
-                      scale: 1.03,
+                      scale: 1.02,
                       y: -2,
-                      borderColor: "rgba(99, 102, 241, 0.4)",
-                      boxShadow: "0 4px 20px rgba(99, 102, 241, 0.25)",
-                      backgroundColor: "rgba(255, 255, 255, 0.04)"
+                      borderColor: "rgba(0, 217, 255, 0.4)",
+                      boxShadow: "0 4px 20px rgba(0, 217, 255, 0.15)",
+                      backgroundColor: "rgba(79, 124, 255, 0.05)"
                     }}
                     onClick={() => smoothSpringScroll(item.targetId)}
-                    className="flex items-center space-x-2.5 cursor-pointer bg-slate-900/30 border border-white/5 rounded-xl px-3 py-2 transition-colors relative z-10 select-none hover:z-20 duration-200"
+                    className="flex items-center space-x-2.5 cursor-pointer bg-slate-900/50 border border-indigo-500/10 rounded-xl px-3 py-2 transition-colors relative z-10 select-none hover:z-20 duration-200"
                   >
-                    <span className="p-0.5 bg-emerald-400/20 text-emerald-400 rounded-md">✓</span>
+                    <span className="p-0.5 bg-[#10B981]/25 text-[#10B981] rounded-md font-bold shadow-[0_0_8px_rgba(16,185,129,0.3)]">✓</span>
                     <span className="text-slate-300 hover:text-white transition-colors">{item.label}</span>
                   </motion.div>
                 ))}
@@ -315,13 +307,13 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
             </div>
 
             {/* Verification Footer button callout to modal */}
-            <div className="border-t border-white/5 pt-4">
+            <div className="border-t border-indigo-500/10 pt-4">
               <button
                 id="hero-verify-trigger-button"
                 onClick={onOpenAuditReport}
-                className="w-full py-3 bg-white/5 hover:bg-indigo-500/10 border border-white/5 hover:border-indigo-500/40 text-[10px] font-mono text-indigo-300 font-bold rounded-xl flex items-center justify-center space-x-2 transition-all uppercase"
+                className="w-full py-3 premium-button text-[10px] font-mono text-indigo-300 font-bold rounded-xl flex items-center justify-center space-x-2 transition-all uppercase cursor-pointer"
               >
-                <ShieldCheck className="w-4 h-4" />
+                <ShieldCheck className="w-4 h-4 text-[#10B981]" />
                 <span>Verify Resume Registry Parity (Full Schema)</span>
               </button>
             </div>

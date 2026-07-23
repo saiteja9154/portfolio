@@ -23,16 +23,15 @@ export default function CertificationVault() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-100px' }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ perspective: 1000 }}
-      className="py-24 border-b border-white/5 relative bg-black/40"
+      className="py-24 border-b border-indigo-500/5 relative bg-transparent"
     >
       <div className="max-w-7xl mx-auto px-6 relative z-10 select-none">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-4">
           <div className="max-w-xl">
-            <div className="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-505/30 text-indigo-400 px-3 py-1 rounded-full text-xs font-mono mb-4">
-              <Award className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center space-x-2 bg-indigo-500/10 border border-indigo-500/30 text-indigo-400 px-3 py-1 rounded-full text-xs font-mono mb-4">
+              <Award className="w-3.5 h-3.5 text-[#00D9FF]" />
               <span>SECURE CREDENTIAL REGISTRY</span>
             </div>
             <h2 className="text-4xl font-bold tracking-tight text-white font-display">
@@ -54,19 +53,21 @@ export default function CertificationVault() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search credentials..."
-                className="w-full sm:w-56 h-10 bg-slate-900 border border-white/5 focus:border-indigo-500/40 rounded-xl pl-10 pr-4 text-xs text-white focus:outline-none transition-all font-mono placeholder-slate-600"
+                className="w-full sm:w-56 h-10 bg-slate-900/50 border border-indigo-500/10 focus:border-[#00D9FF]/40 rounded-xl pl-10 pr-4 text-xs text-white focus:outline-none transition-all font-mono placeholder-slate-600 backdrop-blur-md"
               />
             </div>
 
             {/* Issuer Select Filter dropdown */}
-            <div className="flex bg-slate-900 border border-white/5 rounded-xl p-0.5 text-xs font-mono">
+            <div className="flex bg-slate-900/60 border border-indigo-500/10 rounded-xl p-0.5 text-xs font-mono backdrop-blur-md">
               {issuers.map((issuer) => (
                 <button
                   id={`filter-issuer-${issuer.toLowerCase().replace(/\s+/g, '-')}`}
                   key={issuer}
                   onClick={() => setSelectedIssuer(issuer)}
-                  className={`px-3 py-2 rounded-lg transition-all ${
-                    selectedIssuer === issuer ? 'bg-indigo-500 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+                  className={`px-3 py-2 rounded-lg transition-all cursor-pointer ${
+                    selectedIssuer === issuer 
+                      ? 'bg-indigo-500/20 text-[#00D9FF] border border-indigo-500/30 shadow-[0_0_12px_rgba(0,217,255,0.15)] font-bold' 
+                      : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
                   {issuer.toUpperCase()}
@@ -87,21 +88,21 @@ export default function CertificationVault() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.3, ease: 'easeOut' }}
-                whileHover={{ rotateX: 4, rotateY: -4, scale: 1.01 }}
-                style={{ transformStyle: 'preserve-3d' }}
-                className="relative cursor-pointer bg-gradient-to-b from-slate-950 to-slate-900/40 border border-white/5 border-t-white/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.08)] hover:border-indigo-500/30 rounded-2xl p-6 transition-all shadow-md group overflow-hidden"
+                whileHover={{ y: -4 }}
+                className="relative cursor-pointer premium-glass-card rounded-2xl p-6 transition-all shadow-md group overflow-hidden"
               >
                 {/* Vault Grid Mesh BG line overlay */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:100%_8px] pointer-events-none" />
+                <div className="absolute inset-0 bg-[linear-gradient(to_bottom,rgba(79,124,255,0.01)_1px,transparent_1px)] bg-[size:100%_8px] pointer-events-none" />
 
                 <div className="relative z-10 flex flex-col justify-between h-full space-y-8">
                   {/* Card Header area */}
                   <div className="flex justify-between items-start">
-                    <div className="p-2 bg-indigo-500/10 border border-indigo-505/20 text-indigo-400 rounded-xl">
-                      <ShieldCheck className="w-5 h-5" />
+                    <div className="p-2 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 rounded-xl">
+                      <ShieldCheck className="w-5 h-5 text-[#00D9FF]" />
                     </div>
                     {/* Verifying compliance badge display layout */}
                     <div className="flex items-center space-x-1.5 text-[9px] font-mono uppercase bg-emerald-400/10 border border-emerald-400/20 text-emerald-400 px-2.5 py-0.5 rounded-full">
+                      <span className="card-status-dot shrink-0" />
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>{cert.status}</span>
                     </div>
@@ -109,7 +110,7 @@ export default function CertificationVault() {
 
                   {/* Title & Issuer text metadata block */}
                   <div>
-                    <h3 className="text-sm font-bold font-display text-white group-hover:text-indigo-300 transition-colors leading-snug">
+                    <h3 className="text-sm font-bold font-display text-white group-hover:text-[#00D9FF] transition-colors leading-snug">
                       {cert.name}
                     </h3>
                     <p className="text-xs text-slate-400 font-mono mt-1">
@@ -118,10 +119,10 @@ export default function CertificationVault() {
                   </div>
 
                   {/* Security Checksum Verification Row block */}
-                  <div className="border-t border-white/5 pt-4 flex justify-between items-center text-[10px] font-mono text-slate-500">
+                  <div className="border-t border-indigo-500/10 pt-4 flex justify-between items-center text-[10px] font-mono text-slate-500">
                     <span>INDEX KEY: TEJA-REG-{cert.issuer.substring(0, 3).toUpperCase()}</span>
                     <span className="flex items-center gap-1 text-[9px] text-slate-400 uppercase bg-white/5 px-2 py-0.5 rounded border border-white/5">
-                      VERIFY <ArrowUpRight className="w-3 h-3 text-indigo-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                      VERIFY <ArrowUpRight className="w-3 h-3 text-[#00D9FF] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </span>
                   </div>
                 </div>
@@ -132,7 +133,7 @@ export default function CertificationVault() {
 
         {/* Empty status check safety */}
         {filteredCerts.length === 0 && (
-          <div className="text-center py-20 bg-slate-900/20 border border-white/5 rounded-2xl">
+          <div className="text-center py-20 bg-slate-900/20 border border-indigo-500/10 rounded-2xl">
             <ShieldAlert className="w-10 h-10 mx-auto text-slate-600 animate-pulse mb-3" />
             <p className="text-xs font-mono text-slate-500 uppercase tracking-widest">
               Zero Matched Credentials Found in Stable Registry

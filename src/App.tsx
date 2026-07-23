@@ -16,6 +16,7 @@ import ScrollProgress from './components/ScrollProgress';
 
 export default function App() {
   const [isIntelligenceModalOpen, setIsIntelligenceModalOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>('hero-section');
 
   // Track mouse coordinates for spotlight
   useEffect(() => {
@@ -29,6 +30,34 @@ export default function App() {
     };
   }, []);
 
+  // IntersectionObserver scroll spy for Active Page Indicator
+  useEffect(() => {
+    const sections = ['hero-section', 'skill-matrix', 'project-command-center', 'academics-internships', 'certification-vault', 'contact-hub'];
+    const observerOptions = {
+      root: null,
+      rootMargin: '-30% 0px -40% 0px',
+      threshold: 0
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    sections.forEach(id => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   // Smooth scroll handler
   const scrollToView = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
@@ -37,20 +66,35 @@ export default function App() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
       
-      {/* 1. Global Background Grid Mesh & Accent Glow Overlays */}
-      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(16,24,48,0.3),transparent_70%)] pointer-events-none" />
-      <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
+      {/* 1. Global Premium AI Command Center Background Layer */}
+      <div className="fixed inset-0 z-0 bg-[#050816] pointer-events-none" />
+      
+      {/* Subtle animated blueprint grid mesh */}
+      <div className="fixed inset-0 z-0 bg-grid-blueprint animate-grid-drift opacity-30 pointer-events-none" />
+      
+      {/* Neural node connecting layout */}
+      <div className="fixed inset-0 z-0 bg-neural-nodes opacity-15 pointer-events-none" />
 
-      {/* Dynamic Ambient Spotlight Layer */}
+      {/* Blueprint peripheral markings */}
+      <div className="fixed inset-x-6 top-6 bottom-6 border border-indigo-500/5 pointer-events-none z-0">
+        <div className="absolute top-2 left-2 text-[8px] font-mono text-indigo-500/30">SYS_LOC: 45.92.A</div>
+        <div className="absolute bottom-2 right-2 text-[8px] font-mono text-indigo-500/30">INTELLIGENCE_CENTER_V2.0</div>
+      </div>
+
+      {/* Ambient static gradient glow (top top and bottom right) */}
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(79,124,255,0.12),transparent_70%)] pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(0,217,255,0.06),transparent_60%)] pointer-events-none" />
+
+      {/* Dynamic Interactive Ambient Spotlight Layer */}
       <div 
         className="fixed inset-0 z-0 pointer-events-none opacity-15 mix-blend-screen"
         style={{
-          background: 'radial-gradient(600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(99, 102, 241, 0.45), transparent 80%)'
+          background: 'radial-gradient(600px circle at var(--mouse-x, -999px) var(--mouse-y, -999px), rgba(0, 217, 255, 0.35), transparent 80%)'
         }}
       />
 
       {/* 2. Premium Apple-style Floating Glass Navigation Bar */}
-      <nav className="fixed top-0 inset-x-0 h-16 bg-slate-950/75 border-b border-white/5 backdrop-blur-md z-40 select-none">
+      <nav className="fixed top-0 inset-x-0 h-16 bg-slate-950/75 border-b border-indigo-500/10 backdrop-blur-md z-40 select-none">
         <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
           
           {/* Logo Mark */}
@@ -58,7 +102,7 @@ export default function App() {
             onClick={() => scrollToView('hero-section')} 
             className="flex items-center space-x-2.5 cursor-pointer group"
           >
-            <div className="w-8 h-8 rounded-full border border-white/10 bg-slate-900/60 backdrop-blur-md flex items-center justify-center overflow-hidden group-hover:scale-105 group-hover:border-indigo-500/30 transition-all shrink-0">
+            <div className="w-8 h-8 rounded-full border border-indigo-500/20 bg-slate-900/60 backdrop-blur-md flex items-center justify-center overflow-hidden group-hover:scale-105 group-hover:border-indigo-500/50 transition-all shrink-0">
               <img
                 src={profileImg}
                 alt="Sai Teja Revuri"
@@ -66,7 +110,7 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <span className="text-sm font-bold text-white tracking-tight font-display group-hover:text-indigo-300 transition-colors">
+            <span className="text-sm font-bold text-white tracking-tight font-display group-hover:text-indigo-400 transition-colors">
               Sai Teja Revuri
             </span>
           </div>
@@ -76,35 +120,35 @@ export default function App() {
             <button 
               id="nav-link-skills"
               onClick={() => scrollToView('skill-matrix')} 
-              className="hover:text-indigo-400 transition-colors"
+              className={`nav-link hover:text-indigo-400 transition-colors cursor-pointer ${activeSection === 'skill-matrix' ? 'nav-link-active' : ''}`}
             >
               SKILLS
             </button>
             <button 
               id="nav-link-projects"
               onClick={() => scrollToView('project-command-center')} 
-              className="hover:text-indigo-400 transition-colors"
+              className={`nav-link hover:text-indigo-400 transition-colors cursor-pointer ${activeSection === 'project-command-center' ? 'nav-link-active' : ''}`}
             >
               PROJECTS
             </button>
             <button 
               id="nav-link-academics"
               onClick={() => scrollToView('academics-internships')} 
-              className="hover:text-indigo-400 transition-colors"
+              className={`nav-link hover:text-indigo-400 transition-colors cursor-pointer ${activeSection === 'academics-internships' ? 'nav-link-active' : ''}`}
             >
               MILESTONES
             </button>
             <button 
               id="nav-link-certs"
               onClick={() => scrollToView('certification-vault')} 
-              className="hover:text-indigo-400 transition-colors"
+              className={`nav-link hover:text-indigo-400 transition-colors cursor-pointer ${activeSection === 'certification-vault' ? 'nav-link-active' : ''}`}
             >
               VAULT
             </button>
             <button 
               id="nav-link-contact"
               onClick={() => scrollToView('contact-hub')} 
-              className="hover:text-indigo-400 transition-colors"
+              className={`nav-link hover:text-indigo-400 transition-colors cursor-pointer ${activeSection === 'contact-hub' ? 'nav-link-active' : ''}`}
             >
               CONTACT
             </button>
@@ -115,7 +159,7 @@ export default function App() {
             <button
               id="nav-verify-trigger-button"
               onClick={() => setIsIntelligenceModalOpen(true)}
-              className="px-4 py-1.5 bg-gradient-to-r from-indigo-600/20 to-purple-600/20 hover:from-indigo-600/30 hover:to-purple-600/30 border border-indigo-500/30 rounded-full text-[10px] font-mono text-indigo-300 font-bold transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer uppercase"
+              className="px-4 py-1.5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 hover:from-indigo-500/20 hover:to-purple-500/20 border border-indigo-500/30 rounded-full text-[10px] font-mono text-indigo-300 font-bold transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer uppercase hover:shadow-[0_0_12px_rgba(0,217,255,0.3)] hover:border-indigo-400"
             >
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
               <span>LOGICAL AUDIT</span>
@@ -148,7 +192,7 @@ export default function App() {
       </main>
 
       {/* 4. Elegant responsive Dashboard Footer */}
-      <footer className="relative border-t border-white/5 py-12 bg-slate-950/80 z-10 select-none">
+      <footer className="relative border-t border-indigo-500/10 py-12 bg-slate-950/80 z-10 select-none">
         <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between text-xs font-mono text-slate-500 gap-6">
           
           <div className="flex items-center space-x-2">
@@ -159,7 +203,7 @@ export default function App() {
           <div className="flex items-center space-x-4 text-[10px]">
             <span>SYSTEM_HOST: CLOUD_RUN v1.2</span>
             <span>•</span>
-            <span className="text-indigo-400/80">SECURITY CHECKUM: PASS</span>
+            <span className="text-indigo-400/80">SECURITY CHECKSUM: PASS</span>
           </div>
 
         </div>

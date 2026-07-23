@@ -58,16 +58,13 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
       {/* Animated Cyber Background Atmosphere */}
       <div className="absolute inset-0 pointer-events-none z-0">
         {/* Slow moving gradient light nodes */}
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl animate-ambient-light" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl animate-ambient-light" style={{ animationDelay: '-6s' }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/5 rounded-full blur-3xl animate-ambient-light" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-600/5 rounded-full blur-3xl animate-ambient-light" style={{ animationDelay: '-6s' }} />
 
         {/* Floating Glowing Particles */}
-        <div className="absolute top-1/3 left-1/5 w-2 h-2 rounded-full bg-indigo-400/50 blur-[1px] animate-float-particle" />
-        <div className="absolute top-2/3 right-1/4 w-3 h-3 rounded-full bg-purple-400/40 blur-[1px] animate-float-particle" style={{ animationDelay: '-3s' }} />
-        <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 rounded-full bg-cyan-400/50 blur-[1px] animate-float-particle" style={{ animationDelay: '-5s' }} />
-
-        {/* Cyber Grid Lines Overlay */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div className="absolute top-1/3 left-1/5 w-2 h-2 rounded-full bg-indigo-400/30 blur-[1px] animate-float-particle" />
+        <div className="absolute top-2/3 right-1/4 w-3 h-3 rounded-full bg-purple-400/20 blur-[1px] animate-float-particle" style={{ animationDelay: '-3s' }} />
+        <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 rounded-full bg-cyan-400/30 blur-[1px] animate-float-particle" style={{ animationDelay: '-5s' }} />
       </div>
 
       {/* Main Glass Showcase Card Container */}
@@ -76,28 +73,29 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.45, ease: "easeOut" }}
-        className="relative z-10 w-full max-w-5xl bg-slate-900/70 border border-white/10 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl overflow-hidden animate-neon-border flex flex-col justify-between max-h-[86vh] overflow-y-auto no-scrollbar"
+        className="relative z-10 w-full max-w-5xl premium-glass-card rounded-2xl md:rounded-3xl p-6 sm:p-8 md:p-10 lg:p-12 shadow-2xl flex flex-col justify-between max-h-[86vh] overflow-y-auto no-scrollbar"
       >
         {/* Ambient Corner Accent */}
-        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-indigo-500/15 via-purple-500/5 to-transparent blur-2xl pointer-events-none" />
+        <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-indigo-500/10 via-purple-500/5 to-transparent blur-2xl pointer-events-none" />
 
         <div>
           {/* Top Category & Links Header */}
-          <div className="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-white/10 pb-4">
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-6 border-b border-indigo-500/10 pb-4">
             
             <div className="flex items-center space-x-3">
+              <span className="card-status-dot" />
               <div className={`p-2.5 rounded-xl border ${
                 isAIFullStack
-                  ? 'bg-purple-500/10 border-purple-500/30 text-purple-400 shadow-[0_0_12px_rgba(168,85,247,0.25)]'
+                  ? 'bg-purple-500/10 border-indigo-400/20 text-[#00D9FF] shadow-[0_0_12px_rgba(0,217,255,0.15)]'
                   : isML 
-                  ? 'bg-indigo-500/10 border-indigo-500/30 text-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.25)]' 
-                  : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.25)]'
+                  ? 'bg-indigo-500/10 border-indigo-500/20 text-[#4F7CFF] shadow-[0_0_12px_rgba(79,124,255,0.15)]' 
+                  : 'bg-[#10B981]/10 border-[#10B981]/20 text-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.15)]'
               }`}>
                 <CategoryIcon className="w-5 h-5" />
               </div>
               <div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400 font-bold">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#00D9FF] font-bold">
                     PROJECT 0{index + 1} / 0{totalProjects}
                   </span>
                   <span className="text-slate-600">•</span>
@@ -128,7 +126,7 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/60 text-slate-300 hover:text-white rounded-xl transition-all duration-300 hover:rotate-12 hover:scale-110 hover:shadow-[0_0_20px_rgba(99,102,241,0.5)] cursor-pointer"
+                  className="p-2.5 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/60 text-slate-300 hover:text-white rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(79,124,255,0.4)] cursor-pointer"
                   title="View Source on GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -158,7 +156,7 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
           {/* Key Outcomes / Metrics */}
           <div className="mb-6">
             <div className="flex items-center space-x-2 text-xs font-mono text-indigo-400 uppercase tracking-wider mb-3">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-400 animate-pulse" />
               <span>KEY OUTCOMES / METRICS</span>
             </div>
             
@@ -166,9 +164,9 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
               {project.outcomes.map((outcome, idx) => (
                 <li
                   key={idx}
-                  className="flex items-start space-x-3 text-xs md:text-sm text-slate-200 bg-white/[0.02] border border-white/5 hover:border-indigo-500/30 p-3 rounded-xl transition-colors"
+                  className="flex items-start space-x-3 text-xs md:text-sm text-slate-200 bg-white/[0.01] border border-indigo-500/5 hover:border-indigo-500/30 p-3 rounded-xl transition-colors"
                 >
-                  <span className="text-indigo-400 font-bold mt-0.5 shrink-0 bg-indigo-500/10 p-1 rounded-md">✓</span>
+                  <span className="text-[#00D9FF] font-bold mt-0.5 shrink-0 bg-indigo-500/10 p-1 rounded-md">✓</span>
                   <span className="leading-snug">{outcome}</span>
                 </li>
               ))}
@@ -177,18 +175,18 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
         </div>
 
         {/* Footer with Technology Chips & Registry ID */}
-        <div className="border-t border-white/10 pt-4 mt-2 flex flex-wrap items-center justify-between gap-4">
+        <div className="border-t border-indigo-500/10 pt-4 mt-2 flex flex-wrap items-center justify-between gap-4">
           
           {/* Technology Chips */}
           <div className="flex flex-wrap gap-2 items-center">
             <div className="flex items-center space-x-1.5 text-[10px] font-mono text-slate-500 uppercase mr-1">
-              <Layers className="w-3 h-3" />
+              <Layers className="w-3 h-3 text-[#00D9FF]" />
               <span>TECH STACK:</span>
             </div>
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="text-[11px] font-mono bg-slate-950/80 border border-white/10 text-slate-300 px-3 py-1.5 rounded-lg shadow-sm hover:border-indigo-400/60 hover:text-indigo-200 hover:-translate-y-[3px] hover:shadow-[0_0_12px_rgba(99,102,241,0.35)] transition-all duration-200 cursor-default"
+                className="text-[11px] font-mono bg-slate-950/80 border border-indigo-500/15 text-slate-300 px-3 py-1.5 rounded-lg shadow-sm hover:border-[#00D9FF]/40 hover:text-[#00D9FF] hover:-translate-y-[2px] hover:shadow-[0_0_12px_rgba(0,217,255,0.2)] transition-all duration-200 cursor-default"
               >
                 {tech}
               </span>
@@ -196,9 +194,9 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
           </div>
 
           {/* Registry ID Tag */}
-          <div className="text-[10px] font-mono text-slate-400 flex items-center space-x-2 bg-slate-950/80 border border-white/10 px-3 py-1.5 rounded-lg shadow-sm">
+          <div className="text-[10px] font-mono text-slate-400 flex items-center space-x-2 bg-slate-950/80 border border-indigo-500/15 px-3 py-1.5 rounded-lg shadow-sm">
             <span className="text-slate-500">REGISTRY ID:</span>
-            <span className="text-indigo-300 font-bold uppercase tracking-wider">{project.id}</span>
+            <span className="text-[#00D9FF] font-bold uppercase tracking-wider">{project.id}</span>
           </div>
 
         </div>
@@ -234,12 +232,12 @@ export default function ProjectCommandCenter() {
   return (
     <div 
       id="project-command-center" 
-      className="project-snap-container no-scrollbar relative w-full bg-slate-950 text-slate-100 overflow-hidden"
+      className="project-snap-container no-scrollbar relative w-full bg-transparent text-slate-100 overflow-hidden"
     >
       {/* Header Badge Overlay */}
-      <div className="absolute top-4 left-6 z-30 pointer-events-none hidden md:flex items-center space-x-2 bg-slate-900/80 border border-white/10 px-3.5 py-1.5 rounded-full text-xs font-mono text-slate-300 backdrop-blur-md shadow-lg">
+      <div className="absolute top-4 left-6 z-30 pointer-events-none hidden md:flex items-center space-x-2 bg-slate-900/80 border border-indigo-500/10 px-3.5 py-1.5 rounded-full text-xs font-mono text-slate-300 backdrop-blur-md shadow-lg">
         <FolderGit2 className="w-3.5 h-3.5 text-indigo-400" />
-        <span className="text-purple-300 font-bold">PROJECT COMMAND CENTER</span>
+        <span className="text-[#00D9FF] font-bold">PROJECT COMMAND CENTER</span>
         <span className="text-slate-500">•</span>
         <span className="text-slate-400 text-[11px]">FULL-SCREEN SHOWCASE</span>
       </div>
@@ -259,7 +257,7 @@ export default function ProjectCommandCenter() {
               aria-label={`Scroll to ${proj.name}`}
             >
               {/* Tooltip label on hover */}
-              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-slate-900/90 border border-white/10 px-3 py-1 rounded-lg shadow-xl pointer-events-none whitespace-nowrap backdrop-blur-md">
+              <span className="hidden sm:inline-block text-[11px] font-mono text-slate-300 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-slate-900/90 border border-indigo-500/15 px-3 py-1 rounded-lg shadow-xl pointer-events-none whitespace-nowrap backdrop-blur-md">
                 0{idx + 1}. {proj.name}
               </span>
               
@@ -268,11 +266,11 @@ export default function ProjectCommandCenter() {
                 isActive ? 'w-4 h-4' : 'w-3 h-3'
               }`}>
                 {isActive && (
-                  <span className="absolute inset-0 rounded-full bg-indigo-500/40 animate-ping" />
+                  <span className="absolute inset-0 rounded-full bg-indigo-500/20 animate-ping" />
                 )}
                 <div className={`w-full h-full rounded-full transition-all duration-300 border ${
                   isActive 
-                    ? 'bg-indigo-500 border-indigo-400 shadow-[0_0_12px_rgba(99,102,241,0.9)] scale-110' 
+                    ? 'bg-indigo-500 border-indigo-400 shadow-[0_0_12px_rgba(79,124,255,0.7)] scale-110' 
                     : 'bg-slate-800/80 border-slate-600 hover:border-indigo-400 hover:bg-slate-700'
                 }`} />
               </div>
@@ -294,4 +292,3 @@ export default function ProjectCommandCenter() {
     </div>
   );
 }
-

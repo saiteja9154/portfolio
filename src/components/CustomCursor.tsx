@@ -77,18 +77,15 @@ export default function CustomCursor() {
     const handleMouseDown = (e: MouseEvent) => {
       setIsMouseDown(true);
 
-      // Create 12 sharp, fiery particles radiating from the exact click spot
-      const fireColors = ['#ff4500', '#ff8c00', '#ffb700', '#ea580c', '#ef4444'];
+      // Create 12 sharp, digital blue/cyan particles radiating from the exact click spot
+      const fireColors = ['#00D9FF', '#4F7CFF', '#3b66df', '#80ecff', '#8bb2ff'];
       const particles: Particle[] = Array.from({ length: 12 }).map((_, i) => {
-        // Distribute nicely with some randomness
         const angle = (i * 30 + Math.random() * 15) * (Math.PI / 180);
-        // Slightly tighter and more concentrated around center: shooting 10px to 28px
         const distance = 10 + Math.random() * 18;
         const targetX = Math.cos(angle) * distance;
-        // Float slightly upwards like real fire sparks/ember rising, tighter vertical movement
         const targetY = Math.sin(angle) * distance - (3 + Math.random() * 4);
         const color = fireColors[Math.floor(Math.random() * fireColors.length)];
-        const size = 1.8 + Math.random() * 2.2; // 1.8px to 4px
+        const size = 1.8 + Math.random() * 2.2;
         return {
           id: i,
           targetX,
@@ -182,29 +179,29 @@ export default function CustomCursor() {
 
   if (!isVisible) return null;
 
-  // Fire palette theme overrides (Amber and Deep Orange colors matching fire motif)
+  // Blue / Cyan Accent follow tracking ring
   let ringSize = 28;
   let ringStyle = {};
 
   if (hoverType === 'clickable') {
     ringSize = 48;
     ringStyle = {
-      backgroundColor: 'rgba(249, 115, 22, 0.12)', // Subtle warm amber/orange tint
-      borderColor: 'rgba(249, 115, 22, 0.75)', // Deep vibrant fire Orange
-      boxShadow: '0 0 12px rgba(249, 115, 22, 0.25)', // Inner/outer amber halo
+      backgroundColor: 'rgba(0, 217, 255, 0.08)',
+      borderColor: 'rgba(0, 217, 255, 0.7)',
+      boxShadow: '0 0 12px rgba(0, 217, 255, 0.2)',
     };
   } else if (hoverType === 'card') {
     ringSize = 64;
     ringStyle = {
-      backgroundColor: 'rgba(245, 158, 11, 0.02)', // Soft gold/yellow card overlay
-      borderColor: 'rgba(245, 158, 11, 0.35)', // Amber tracking border
-      boxShadow: '0 0 8px rgba(245, 158, 11, 0.1)',
+      backgroundColor: 'rgba(79, 124, 255, 0.02)',
+      borderColor: 'rgba(79, 124, 255, 0.3)',
+      boxShadow: '0 0 8px rgba(79, 124, 255, 0.1)',
     };
   } else {
     ringSize = 28;
     ringStyle = {
       backgroundColor: 'transparent',
-      borderColor: 'rgba(249, 115, 22, 0.42)', // Medium Orange default ring follower
+      borderColor: 'rgba(79, 124, 255, 0.35)',
     };
   }
 
@@ -215,7 +212,7 @@ export default function CustomCursor() {
       {clicks.map((click) => (
         <div key={`click-group-${click.id}`} className="absolute top-0 left-0 pointer-events-none">
           
-          {/* Primary Spark Pulse: Medium core fire-blast ring expansion (diameter up to 44px) */}
+          {/* Primary Spark Pulse */}
           <motion.div
             initial={{ width: 4, height: 4, opacity: 1, scale: 0.8 }}
             animate={{ width: 44, height: 44, opacity: 0 }}
@@ -226,9 +223,8 @@ export default function CustomCursor() {
               top: click.y,
               transform: 'translate(-50%, -50%)',
               borderRadius: '50%',
-              // Gradient-like appearance with a vibrant golden-orange border
-              border: '2px solid #ff7a00',
-              boxShadow: '0 0 10px #ff3c00, inset 0 0 6px #ffcc00',
+              border: '2px solid #00D9FF',
+              boxShadow: '0 0 10px #4F7CFF, inset 0 0 6px #00D9FF',
               pointerEvents: 'none',
             }}
           />
@@ -245,13 +241,13 @@ export default function CustomCursor() {
               width: '8px',
               height: '8px',
               borderRadius: '50%',
-              backgroundColor: '#ffea73',
-              boxShadow: '0 0 12px 6px #ff7a00',
+              backgroundColor: '#80ecff',
+              boxShadow: '0 0 12px 6px #00D9FF',
               transform: 'translate(-50%, -50%)',
             }}
           />
 
-          {/* Radiating 12 Fire Spark/Ember particles with highly responsive physics */}
+          {/* Radiating particles */}
           {click.particles.map((p) => (
             <motion.div
               key={`particle-${click.id}-${p.id}`}
@@ -279,7 +275,7 @@ export default function CustomCursor() {
         </div>
       ))}
 
-      {/* Outer Follower Ring (with Amber/Orange palette & snappy button-press shrinkage scale) */}
+      {/* Outer Follower Ring */}
       <motion.div
         animate={{
           width: ringSize,
@@ -299,7 +295,7 @@ export default function CustomCursor() {
         className="fixed pointer-events-none mix-blend-screen"
       />
 
-      {/* Inner Pinpoint Dot: Fire-color synchronized (Solid bright Deep Amber/Orange) */}
+      {/* Inner Pinpoint Dot */}
       <motion.div
         style={{
           x: smoothDotX,
@@ -307,7 +303,7 @@ export default function CustomCursor() {
           translateX: '-50%',
           translateY: '-50%',
         }}
-        className="fixed w-2 h-2 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full pointer-events-none z-50 shadow-[0_0_8px_#f97316]"
+        className="fixed w-2 h-2 bg-gradient-to-r from-[#4F7CFF] to-[#00D9FF] rounded-full pointer-events-none z-50 shadow-[0_0_8px_#00D9FF]"
       />
     </div>
   );

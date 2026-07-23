@@ -97,14 +97,14 @@ export default function RecruitmentExport() {
   };
 
   return (
-    <section id="export-center" className="py-24 relative overflow-hidden bg-slate-950/20 border-b border-white/5 select-none">
+    <section id="export-center" className="py-24 relative overflow-hidden bg-transparent border-b border-indigo-500/5 select-none">
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         
         {/* Main interactive recruitment box */}
-        <div className="bg-gradient-to-r from-slate-900 to-indigo-950/40 border border-white/10 rounded-3xl p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+        <div className="bg-[#0A1023]/70 border border-indigo-500/15 rounded-3xl p-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8 backdrop-blur-xl shadow-2xl">
           <div className="max-w-xl space-y-4">
-            <div className="inline-flex items-center space-x-1 bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase">
-              <ShieldCheck className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center space-x-1 bg-indigo-500/10 border border-indigo-500/30 text-[#00D9FF] px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase">
+              <ShieldCheck className="w-3.5 h-3.5 text-[#10B981]" />
               <span>RECRUITMENT PROTOCOL INITIATED</span>
             </div>
             <h3 className="text-3xl font-extrabold tracking-tight text-white font-display">
@@ -122,9 +122,9 @@ export default function RecruitmentExport() {
               id="export-json-button"
               onClick={handleExportJSONProfile}
               disabled={downloadingSection !== null}
-              className="text-xs font-bold font-mono px-5 py-4 bg-slate-900 border border-white/5 hover:border-indigo-500 hover:bg-slate-950/80 rounded-2xl flex items-center space-x-3 text-white transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.2)] disabled:opacity-50"
+              className="text-xs font-bold font-mono px-5 py-4 premium-button rounded-2xl flex items-center space-x-3 text-white transition-all disabled:opacity-50 cursor-pointer"
             >
-              <FileJson className="w-4 h-4 text-indigo-400" />
+              <FileJson className="w-4 h-4 text-[#00D9FF]" />
               <span>
                 {downloadingSection === 'json' ? "COMPILING PROFILE..." : "EXPORT JSON PROFILE"}
               </span>
@@ -135,11 +135,11 @@ export default function RecruitmentExport() {
               id="export-skill-matrix-button"
               onClick={handleDownloadSkillMatrix}
               disabled={downloadingSection !== null}
-              className="text-xs font-bold font-mono px-5 py-4 bg-slate-900 border border-white/5 hover:border-indigo-500 hover:bg-slate-950/80 rounded-2xl flex items-center space-x-3 text-white transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.2)] disabled:opacity-50"
+              className="text-xs font-bold font-mono px-5 py-4 premium-button rounded-2xl flex items-center space-x-3 text-white transition-all disabled:opacity-50 cursor-pointer"
             >
-              <Download className="w-4 h-4 text-purple-400" />
+              <Download className="w-4 h-4 text-[#00D9FF]" />
               <span>
-                {downloadingSection === 'skills' ? "WRITING SUMMARY..." : "DOWNLOAD COMPENCY DOSSIER"}
+                {downloadingSection === 'skills' ? "WRITING SUMMARY..." : "DOWNLOAD DOSSIER"}
               </span>
             </button>
 
@@ -148,9 +148,9 @@ export default function RecruitmentExport() {
               id="export-verification-report-button"
               onClick={handleExportVerificationReport}
               disabled={downloadingSection !== null}
-              className="text-xs font-bold font-mono px-5 py-4 bg-slate-900 border border-white/5 hover:border-indigo-500 hover:bg-slate-950/80 rounded-2xl flex items-center space-x-3 text-white transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.2)] disabled:opacity-50"
+              className="text-xs font-bold font-mono px-5 py-4 premium-button rounded-2xl flex items-center space-x-3 text-white transition-all disabled:opacity-50 cursor-pointer"
             >
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
+              <ShieldCheck className="w-4 h-4 text-[#10B981]" />
               <span>
                 {downloadingSection === 'report' ? "CREATING VERIFICATION..." : "EXPORT AUDIT CHECKLIST"}
               </span>
@@ -160,7 +160,7 @@ export default function RecruitmentExport() {
             <button
               id="print-resume-format-button"
               onClick={handlePrintResume}
-              className="text-xs font-bold font-mono px-5 py-4 bg-slate-900 border border-white/5 hover:border-indigo-500 hover:bg-slate-950/80 rounded-2xl flex items-center space-x-3 text-white transition-all hover:shadow-[0_0_15px_rgba(99,102,241,0.2)]"
+              className="text-xs font-bold font-mono px-5 py-4 premium-button rounded-2xl flex items-center space-x-3 text-white transition-all cursor-pointer"
             >
               <Sparkles className="w-4 h-4 text-amber-400 animate-pulse" />
               <span>PRINT PORTFOLIO (PDF)</span>
