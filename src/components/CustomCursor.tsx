@@ -78,7 +78,7 @@ export default function CustomCursor() {
       setIsMouseDown(true);
 
       // Create 12 sharp, digital blue/cyan particles radiating from the exact click spot
-      const fireColors = ['#00D9FF', '#4F7CFF', '#3b66df', '#80ecff', '#8bb2ff'];
+      const fireColors = ['#00D9FF', '#3B82F6', '#3b66df', '#80ecff', '#8bb2ff'];
       const particles: Particle[] = Array.from({ length: 12 }).map((_, i) => {
         const angle = (i * 30 + Math.random() * 15) * (Math.PI / 180);
         const distance = 10 + Math.random() * 18;
@@ -224,7 +224,7 @@ export default function CustomCursor() {
               transform: 'translate(-50%, -50%)',
               borderRadius: '50%',
               border: '2px solid #00D9FF',
-              boxShadow: '0 0 10px #4F7CFF, inset 0 0 6px #00D9FF',
+              boxShadow: '0 0 10px #3B82F6, inset 0 0 6px #00D9FF',
               pointerEvents: 'none',
             }}
           />
@@ -303,7 +303,7 @@ export default function CustomCursor() {
           translateX: '-50%',
           translateY: '-50%',
         }}
-        className="fixed w-2 h-2 bg-gradient-to-r from-[#4F7CFF] to-[#00D9FF] rounded-full pointer-events-none z-50 shadow-[0_0_8px_#00D9FF]"
+        className="fixed w-2 h-2 bg-gradient-to-r from-[#3B82F6] to-[#00D9FF] rounded-full pointer-events-none z-50 shadow-[0_0_8px_#00D9FF]"
       />
     </div>
   );

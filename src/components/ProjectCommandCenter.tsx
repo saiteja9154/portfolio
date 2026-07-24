@@ -88,7 +88,7 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
                 isAIFullStack
                   ? 'bg-purple-500/10 border-indigo-400/20 text-[#00D9FF] shadow-[0_0_12px_rgba(0,217,255,0.15)]'
                   : isML 
-                  ? 'bg-indigo-500/10 border-indigo-500/20 text-[#4F7CFF] shadow-[0_0_12px_rgba(79,124,255,0.15)]' 
+                  ? 'bg-indigo-500/10 border-indigo-500/20 text-[#3B82F6] shadow-[0_0_12px_rgba(59,130,246,0.15)]' 
                   : 'bg-[#10B981]/10 border-[#10B981]/20 text-[#10B981] shadow-[0_0_12px_rgba(16,185,129,0.15)]'
               }`}>
                 <CategoryIcon className="w-5 h-5" />
@@ -101,6 +101,9 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
                   <span className="text-slate-600">•</span>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-slate-400">
                     {project.categoryLabel || (isAIFullStack ? 'AI + FULL STACK + RAG' : isML ? 'PREDICTION PIPELINE' : 'DATA SYNAPSE ENGINE')}
+                  </span>
+                  <span className="hidden sm:inline-block px-2 py-0.5 bg-slate-900 border border-emerald-500/20 text-emerald-400 rounded text-[8px] font-mono font-bold tracking-widest uppercase">
+                    SYS_ACTIVE
                   </span>
                 </div>
               </div>
@@ -126,7 +129,7 @@ function ProjectSlide({ project, index, totalProjects, onInView }: ProjectSlideP
                   href={project.githubUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="p-2.5 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/60 text-slate-300 hover:text-white rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(79,124,255,0.4)] cursor-pointer"
+                  className="p-2.5 bg-white/5 hover:bg-indigo-500/20 border border-white/10 hover:border-indigo-400/60 text-slate-300 hover:text-white rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-[0_0_20px_rgba(59,130,246,0.4)] cursor-pointer"
                   title="View Source on GitHub"
                 >
                   <Github className="w-4 h-4" />
@@ -270,7 +273,7 @@ export default function ProjectCommandCenter() {
                 )}
                 <div className={`w-full h-full rounded-full transition-all duration-300 border ${
                   isActive 
-                    ? 'bg-indigo-500 border-indigo-400 shadow-[0_0_12px_rgba(79,124,255,0.7)] scale-110' 
+                    ? 'bg-indigo-500 border-indigo-400 shadow-[0_0_12px_rgba(59,130,246,0.7)] scale-110' 
                     : 'bg-slate-800/80 border-slate-600 hover:border-indigo-400 hover:bg-slate-700'
                 }`} />
               </div>

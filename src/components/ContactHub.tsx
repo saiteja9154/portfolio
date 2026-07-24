@@ -21,7 +21,7 @@ export default function ContactHub() {
       value: PERSONAL_INFO.email,
       href: `mailto:${PERSONAL_INFO.email}`,
       icon: Mail,
-      color: 'text-[#4F7CFF] border-indigo-500/20 bg-indigo-500/10 shadow-[0_0_8px_rgba(79,124,255,0.15)]',
+      color: 'text-[#3B82F6] border-indigo-500/20 bg-indigo-500/10 shadow-[0_0_8px_rgba(59,130,246,0.15)]',
     },
     {
       id: 'phone',

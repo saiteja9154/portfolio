@@ -140,7 +140,7 @@ export default function AcademicsInternships() {
                   {/* Node Connector Bullet mark */}
                   <div className={`absolute left-0 -translate-x-1/2 top-1.5 w-6 h-6 rounded-full border flex items-center justify-center transition-all duration-300 ${
                     isAcademic 
-                      ? 'bg-indigo-950 border-indigo-500 text-[#4F7CFF] shadow-[0_0_10px_rgba(79,124,255,0.3)]' 
+                      ? 'bg-indigo-950 border-indigo-500 text-[#3B82F6] shadow-[0_0_10px_rgba(59,130,246,0.3)]' 
                       : 'bg-slate-900 border-[#00D9FF] text-[#00D9FF] shadow-[0_0_10px_rgba(0,217,255,0.3)]'
                   }`}>
                     {isAcademic ? <GraduationCap className="w-3 h-3" /> : <Briefcase className="w-3 h-3" />}

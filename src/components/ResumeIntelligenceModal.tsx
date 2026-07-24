@@ -65,7 +65,7 @@ export default function ResumeIntelligenceModal({ isOpen, onClose }: Props) {
                   <span className="text-xs text-slate-400 font-mono tracking-wider">COMPLETENESS</span>
                   <span className="text-2xl font-bold font-display text-white mt-1">100%</span>
                   <div className="w-full bg-slate-950 h-1.5 rounded-full mt-2 overflow-hidden border border-indigo-500/10">
-                    <div className="bg-gradient-to-r from-[#4F7CFF] to-[#00D9FF] h-full w-[100%] rounded-full" />
+                    <div className="bg-gradient-to-r from-[#3B82F6] to-[#00D9FF] h-full w-[100%] rounded-full" />
                   </div>
                 </div>
                 <div className="bg-slate-900/60 border border-indigo-500/10 p-4 rounded-xl flex flex-col justify-between">
@@ -79,7 +79,7 @@ export default function ResumeIntelligenceModal({ isOpen, onClose }: Props) {
                   <span className="text-xs text-slate-400 font-mono tracking-wider">VIRTUAL INTERNSHIPS</span>
                   <span className="text-2xl font-bold font-display text-white mt-1">3 Completed</span>
                   <div className="w-full bg-slate-950 h-1.5 rounded-full mt-2 overflow-hidden border border-indigo-500/10">
-                    <div className="bg-[#4F7CFF] h-full w-[100%] rounded-full" />
+                    <div className="bg-[#3B82F6] h-full w-[100%] rounded-full" />
                   </div>
                 </div>
                 <div className="bg-slate-900/60 border border-indigo-500/10 p-4 rounded-xl flex flex-col justify-between">
@@ -96,7 +96,7 @@ export default function ResumeIntelligenceModal({ isOpen, onClose }: Props) {
                 
                 {/* Section A: Education summary */}
                 <div className="bg-slate-900/40 border border-indigo-500/10 p-5 rounded-xl space-y-4">
-                  <div className="flex items-center space-x-2 text-[#4F7CFF] font-bold border-b border-indigo-500/10 pb-2">
+                  <div className="flex items-center space-x-2 text-[#3B82F6] font-bold border-b border-indigo-500/10 pb-2">
                     <GraduationCap className="w-4 h-4" />
                     <span className="text-sm uppercase tracking-wider font-display text-white">Education Transcript Ledger</span>
                   </div>

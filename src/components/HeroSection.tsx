@@ -131,17 +131,33 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
           
           {/* Avatar Area with circular floating glass frame */}
           <div className="flex items-center space-x-6">
-            <div
-              id="profile-avatar-container"
-              className="relative w-24 h-24 rounded-full bg-slate-900 border border-indigo-500/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.05)] flex items-center justify-center overflow-hidden group hover:border-[#00D9FF] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300 shrink-0"
-            >
-              <img
-                id="profile-avatar-rendered"
-                src={profileImg}
-                alt="Sai Teja Revuri"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                referrerPolicy="no-referrer"
-              />
+            <div className="relative flex items-center justify-center shrink-0">
+              {/* Subtle Circular AI Core Visualization Behind Avatar */}
+              <div className="absolute inset-0 -m-6 pointer-events-none opacity-25 flex items-center justify-center">
+                {/* Outer Rotating Ring */}
+                <svg className="absolute w-36 h-36 animate-rotate-cw text-indigo-500/30" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="46" stroke="currentColor" strokeWidth="1" strokeDasharray="3 4 8 3" fill="none" />
+                </svg>
+                {/* Middle Rotating Ring */}
+                <svg className="absolute w-32 h-32 animate-rotate-ccw text-purple-400/25" viewBox="0 0 100 100">
+                  <circle cx="50" cy="50" r="42" stroke="currentColor" strokeWidth="1.5" strokeDasharray="5 10" fill="none" />
+                </svg>
+                {/* Inner Glow Core */}
+                <div className="absolute w-20 h-20 bg-indigo-500/5 rounded-full blur-md animate-pulse-core" />
+              </div>
+
+              <div
+                id="profile-avatar-container"
+                className="relative w-24 h-24 rounded-full bg-slate-900 border border-indigo-500/20 shadow-[inset_0_1px_0px_rgba(255,255,255,0.05)] flex items-center justify-center overflow-hidden group hover:border-[#00D9FF] hover:shadow-[0_0_30px_rgba(0,217,255,0.3)] transition-all duration-300 z-10 shrink-0"
+              >
+                <img
+                  id="profile-avatar-rendered"
+                  src={profileImg}
+                  alt="Sai Teja Revuri"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </div>
 
             <div>
@@ -291,15 +307,20 @@ export default function HeroSection({ onOpenAuditReport }: HeroProps) {
                     whileHover={{
                       scale: 1.02,
                       y: -2,
-                      borderColor: "rgba(0, 217, 255, 0.4)",
+                      borderColor: "rgba(0, 217, 255, 0.45)",
                       boxShadow: "0 4px 20px rgba(0, 217, 255, 0.15)",
-                      backgroundColor: "rgba(79, 124, 255, 0.05)"
+                      backgroundColor: "rgba(59, 130, 246, 0.06)"
                     }}
                     onClick={() => smoothSpringScroll(item.targetId)}
-                    className="flex items-center space-x-2.5 cursor-pointer bg-slate-900/50 border border-indigo-500/10 rounded-xl px-3 py-2 transition-colors relative z-10 select-none hover:z-20 duration-200"
+                    className="flex items-center justify-between cursor-pointer bg-slate-900/50 border border-indigo-500/10 rounded-xl px-3.5 py-2.5 transition-all relative z-10 select-none hover:z-20 duration-200"
                   >
-                    <span className="p-0.5 bg-[#10B981]/25 text-[#10B981] rounded-md font-bold shadow-[0_0_8px_rgba(16,185,129,0.3)]">✓</span>
-                    <span className="text-slate-300 hover:text-white transition-colors">{item.label}</span>
+                    <div className="flex items-center space-x-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_#10B981]" />
+                      <span className="text-slate-300 hover:text-white transition-colors">{item.label}</span>
+                    </div>
+                    <span className="text-[9px] font-mono text-emerald-400 bg-emerald-400/10 border border-emerald-400/25 px-1.5 py-0.5 rounded uppercase tracking-wider font-bold">
+                      VERIFIED
+                    </span>
                   </motion.div>
                 ))}
               </motion.div>

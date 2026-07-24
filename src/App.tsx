@@ -64,16 +64,22 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
+    <div className="min-h-screen bg-[#050816] text-slate-100 font-sans antialiased selection:bg-indigo-500/30 selection:text-indigo-200">
       
       {/* 1. Global Premium AI Command Center Background Layer */}
       <div className="fixed inset-0 z-0 bg-[#050816] pointer-events-none" />
       
       {/* Subtle animated blueprint grid mesh */}
-      <div className="fixed inset-0 z-0 bg-grid-blueprint animate-grid-drift opacity-30 pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-grid-blueprint animate-grid-drift opacity-25 pointer-events-none" />
       
       {/* Neural node connecting layout */}
-      <div className="fixed inset-0 z-0 bg-neural-nodes opacity-15 pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-neural-nodes opacity-12 pointer-events-none" />
+
+      {/* Subtle circuit traces */}
+      <div className="fixed inset-0 z-0 bg-circuit-traces opacity-15 pointer-events-none" />
+
+      {/* Faint holographic scan lines */}
+      <div className="fixed inset-0 z-0 holographic-scanlines opacity-25 pointer-events-none" />
 
       {/* Blueprint peripheral markings */}
       <div className="fixed inset-x-6 top-6 bottom-6 border border-indigo-500/5 pointer-events-none z-0">
@@ -82,7 +88,7 @@ export default function App() {
       </div>
 
       {/* Ambient static gradient glow (top top and bottom right) */}
-      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(79,124,255,0.12),transparent_70%)] pointer-events-none" />
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.12),transparent_70%)] pointer-events-none" />
       <div className="fixed inset-0 z-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(0,217,255,0.06),transparent_60%)] pointer-events-none" />
 
       {/* Dynamic Interactive Ambient Spotlight Layer */}
@@ -94,8 +100,8 @@ export default function App() {
       />
 
       {/* 2. Premium Apple-style Floating Glass Navigation Bar */}
-      <nav className="fixed top-0 inset-x-0 h-16 bg-slate-950/75 border-b border-indigo-500/10 backdrop-blur-md z-40 select-none">
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+      <nav className="fixed top-0 z-40 select-none floating-navbar h-16 w-[calc(100%-3rem)] max-w-7xl">
+        <div className="w-full h-full px-6 flex items-center justify-between">
           
           {/* Logo Mark */}
           <div 
@@ -110,9 +116,12 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <span className="text-sm font-bold text-white tracking-tight font-display group-hover:text-indigo-400 transition-colors">
-              Sai Teja Revuri
-            </span>
+            <div className="flex items-center space-x-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_8px_#10B981]" />
+              <span className="text-xs font-mono font-bold text-white tracking-wider group-hover:text-[#00D9FF] transition-colors uppercase">
+                Sai Teja Revuri
+              </span>
+            </div>
           </div>
 
           {/* Nav Links mapping to sections */}
@@ -161,7 +170,7 @@ export default function App() {
               onClick={() => setIsIntelligenceModalOpen(true)}
               className="px-4 py-1.5 bg-gradient-to-r from-indigo-500/10 to-purple-500/10 hover:from-indigo-500/20 hover:to-purple-500/20 border border-indigo-500/30 rounded-full text-[10px] font-mono text-indigo-300 font-bold transition-all shadow-sm flex items-center space-x-1.5 cursor-pointer uppercase hover:shadow-[0_0_12px_rgba(0,217,255,0.3)] hover:border-indigo-400"
             >
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400 animate-pulse" />
               <span>LOGICAL AUDIT</span>
             </button>
           </div>

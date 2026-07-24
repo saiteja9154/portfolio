@@ -50,14 +50,14 @@ export function RadialProgress({ percentage, size = 120, strokeWidth = 10, glow 
         />
         <defs>
           <linearGradient id="indigoPurpleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#4F7CFF" />
+            <stop offset="0%" stopColor="#3B82F6" />
             <stop offset="100%" stopColor="#00D9FF" />
           </linearGradient>
         </defs>
       </svg>
       {glow && (
         <div
-          className="absolute rounded-full pointer-events-none opacity-25 blur-xl bg-gradient-to-tr from-[#4F7CFF] to-[#00D9FF]"
+          className="absolute rounded-full pointer-events-none opacity-25 blur-xl bg-gradient-to-tr from-[#3B82F6] to-[#00D9FF]"
           style={{ width: size - strokeWidth, height: size - strokeWidth }}
         />
       )}
@@ -133,7 +133,7 @@ export function Sparkline({ data, color = 'stroke-[#00D9FF]' }: SparklineProps) 
       {/* Background Gradient Area */}
       <defs>
         <linearGradient id="sparklineGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stopColor="#4F7CFF" stopOpacity="0.15" />
+          <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.15" />
           <stop offset="100%" stopColor="#00D9FF" stopOpacity="0" />
         </linearGradient>
       </defs>
